@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spade Supplies — Content Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #FFB800;
+  --gold-dark: #CC9200;
+  --gold-light: #FFF3CC;
+  --black: #0F0F0F;
+  --gray-900: #1A1A1A;
+  --gray-800: #2C2C2C;
+  --gray-700: #3D3D3D;
+  --gray-600: #555;
+  --gray-400: #888;
+  --gray-200: #E0E0E0;
+  --gray-100: #F4F4F2;
+  --gray-50: #FAFAF8;
+  --white: #FFFFFF;
+  --green: #2D7A4F;
+  --green-light: #E8F5EE;
+  --red: #C0392B;
+  --red-light: #FDECEA;
+  --amber: #B45309;
+  --amber-light: #FEF3C7;
+  --blue: #1D4ED8;
+  --blue-light: #EFF6FF;
+  --purple: #6D28D9;
+  --purple-light: #EDE9FE;
+  --sidebar-w: 220px;
+  --topbar-h: 56px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--gray-100);
+  color: var(--gray-900);
+  font-size: 14px;
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+/* ── TOP BAR ── */
+.topbar {
+  position: fixed; top: 0; left: 0; right: 0; height: var(--topbar-h);
+  background: var(--black);
+  display: flex; align-items: center; padding: 0 20px; gap: 16px;
+  z-index: 100;
+}
+.logo { display: flex; align-items: center; gap: 10px; }
+.logo-mark {
+  width: 30px; height: 30px; background: var(--gold); border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 600; font-size: 13px; color: var(--black);
+}
+.logo-text { font-size: 14px; font-weight: 500; color: var(--white); }
+.logo-sub { font-size: 11px; color: var(--gray-400); }
+.topbar-center { flex: 1; }
+.topbar-right { display: flex; align-items: center; gap: 10px; }
+
+.emergency-btn {
+  display: flex; align-items: center; gap: 6px;
+  padding: 6px 12px; border-radius: 6px;
+  background: transparent; border: 1px solid #C0392B;
+  color: #ff6b6b; font-size: 12px; font-weight: 500; cursor: pointer;
+  font-family: 'DM Sans', sans-serif; transition: all 0.15s;
+}
+.emergency-btn:hover { background: var(--red); color: white; }
+.emergency-btn.paused { background: var(--red); color: white; border-color: var(--red); }
+
+.notif-btn {
+  position: relative; width: 36px; height: 36px; border-radius: 8px;
+  background: var(--gray-800); border: 1px solid var(--gray-700);
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
+  color: var(--gray-400); transition: all 0.15s;
+}
+.notif-btn:hover { background: var(--gray-700); color: var(--white); }
+.notif-count {
+  position: absolute; top: -4px; right: -4px;
+  width: 16px; height: 16px; border-radius: 50%;
+  background: var(--gold); color: var(--black);
+  font-size: 9px; font-weight: 600;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* ── SIDEBAR ── */
+.sidebar {
+  position: fixed; top: var(--topbar-h); left: 0; bottom: 0;
+  width: var(--sidebar-w); background: var(--black);
+  border-right: 1px solid var(--gray-800);
+  padding: 16px 0; overflow-y: auto; z-index: 90;
+}
+.nav-section { padding: 0 12px; margin-bottom: 20px; }
+.nav-label { font-size: 10px; font-weight: 500; color: var(--gray-600); text-transform: uppercase; letter-spacing: 0.08em; padding: 0 8px; margin-bottom: 6px; }
+.nav-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px; border-radius: 6px; cursor: pointer;
+  color: var(--gray-400); font-size: 13px; font-weight: 400;
+  transition: all 0.1s; margin-bottom: 2px;
+}
+.nav-item:hover { background: var(--gray-800); color: var(--white); }
+.nav-item.active { background: var(--gold); color: var(--black); font-weight: 500; }
+.nav-item svg { width: 16px; height: 16px; flex-shrink: 0; }
+.nav-badge {
+  margin-left: auto; font-size: 10px; font-weight: 600;
+  background: var(--gray-700); color: var(--gray-400);
+  padding: 1px 6px; border-radius: 10px;
+}
+.nav-item.active .nav-badge { background: rgba(0,0,0,0.2); color: var(--black); }
+
+/* ── MAIN ── */
+.main {
+  margin-left: var(--sidebar-w);
+  margin-top: var(--topbar-h);
+  padding: 20px;
+  min-height: calc(100vh - var(--topbar-h));
+}
+
+.page { display: none; }
+.page.active { display: block; }
+
+/* ── STAT CARDS ── */
+.stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+.stat-card {
+  background: var(--white); border-radius: 10px;
+  border: 1px solid var(--gray-200); padding: 14px 16px;
+}
+.stat-label { font-size: 11px; color: var(--gray-400); margin-bottom: 4px; }
+.stat-value { font-size: 24px; font-weight: 600; color: var(--gray-900); }
+.stat-sub { font-size: 11px; color: var(--gray-400); margin-top: 2px; }
+
+/* ── FILTERS ── */
+.filter-bar { display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap; align-items: center; }
+.filter-chip {
+  padding: 5px 12px; border-radius: 20px; border: 1px solid var(--gray-200);
+  background: var(--white); font-size: 12px; color: var(--gray-600); cursor: pointer;
+  transition: all 0.1s; font-family: 'DM Sans', sans-serif;
+}
+.filter-chip:hover { border-color: var(--gray-400); }
+.filter-chip.active { background: var(--gray-900); color: var(--white); border-color: var(--gray-900); }
+.filter-chip.gold { background: var(--gold); color: var(--black); border-color: var(--gold); font-weight: 500; }
+
+/* ── POST CARDS ── */
+.post-card {
+  background: var(--white); border: 1px solid var(--gray-200);
+  border-radius: 10px; padding: 14px 16px; margin-bottom: 10px;
+  transition: border-color 0.15s;
+}
+.post-card.approved { border-left: 3px solid var(--green); }
+.post-card.rejected { border-left: 3px solid var(--red); opacity: 0.55; }
+.post-card.flagged { border-left: 3px solid var(--amber); }
+
+.post-head { display: flex; align-items: center; gap: 7px; margin-bottom: 10px; flex-wrap: wrap; }
+.ptag { font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 4px; }
+.ptag-li { background: var(--blue-light); color: var(--blue); }
+.ptag-ig { background: #FCE4EC; color: #AD1457; }
+.ptag-fb { background: var(--purple-light); color: var(--purple); }
+.ptag-yt { background: var(--red-light); color: var(--red); }
+.ltag { font-size: 11px; padding: 2px 8px; border-radius: 4px; background: var(--gray-100); color: var(--gray-600); }
+.pill-tag { font-size: 11px; padding: 2px 8px; border-radius: 4px; background: var(--amber-light); color: var(--amber); }
+
+.qa-score {
+  margin-left: auto; display: flex; align-items: center; gap: 4px;
+  font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 10px;
+}
+.qa-good { background: var(--green-light); color: var(--green); }
+.qa-warn { background: var(--amber-light); color: var(--amber); }
+.qa-bad { background: var(--red-light); color: var(--red); }
+
+.qa-flag {
+  font-size: 11px; background: var(--amber-light); color: var(--amber);
+  border-radius: 4px; padding: 4px 8px; margin-bottom: 8px;
+  border-left: 2px solid var(--amber);
+}
+
+.post-hook { font-size: 13px; font-weight: 600; margin-bottom: 5px; }
+.post-body { font-size: 13px; color: var(--gray-600); line-height: 1.6; margin-bottom: 7px; }
+.post-cta { font-size: 12px; color: var(--blue); margin-bottom: 5px; }
+.post-hashtags { font-size: 11px; color: var(--gray-400); margin-bottom: 10px; }
+.post-img-prompt {
+  font-size: 11px; color: var(--gray-500); background: var(--gray-50);
+  border: 1px solid var(--gray-200); border-radius: 6px;
+  padding: 6px 8px; margin-bottom: 10px; font-style: italic;
+}
+
+.post-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.btn-approve {
+  padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 500;
+  background: var(--green-light); color: var(--green); border: 1px solid #a3d4b8;
+  cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.1s;
+}
+.btn-approve:hover { background: #c3e8d4; }
+.btn-reject {
+  padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 500;
+  background: var(--gray-100); color: var(--gray-600); border: 1px solid var(--gray-200);
+  cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.1s;
+}
+.btn-reject:hover { background: var(--red-light); color: var(--red); border-color: #f5b7b1; }
+.btn-edit {
+  padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 500;
+  background: var(--gray-100); color: var(--gray-700); border: 1px solid var(--gray-200);
+  cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.1s;
+}
+.btn-edit:hover { background: var(--gold-light); color: var(--gray-900); border-color: var(--gold); }
+.btn-preview {
+  padding: 6px 12px; border-radius: 6px; font-size: 12px;
+  background: transparent; color: var(--gray-400); border: 1px solid var(--gray-200);
+  cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.1s;
+}
+.btn-preview:hover { color: var(--gray-900); border-color: var(--gray-400); }
+.btn-ab {
+  padding: 6px 12px; border-radius: 6px; font-size: 12px;
+  background: var(--purple-light); color: var(--purple); border: 1px solid #c4b5fd;
+  cursor: pointer; font-family: 'DM Sans', sans-serif;
+}
+
+.status-label { font-size: 12px; font-weight: 500; display: flex; align-items: center; gap: 4px; }
+.status-approved { color: var(--green); }
+.status-rejected { color: var(--red); }
+.btn-undo { margin-left: auto; }
+
+/* ── EDIT BOT ── */
+.edit-panel {
+  margin-top: 10px; border-top: 1px solid var(--gray-200);
+  padding-top: 10px; display: none;
+}
+.edit-panel.open { display: block; }
+.edit-label { font-size: 11px; font-weight: 500; color: var(--gray-500); margin-bottom: 6px; }
+.edit-row { display: flex; gap: 8px; }
+.edit-input {
+  flex: 1; padding: 7px 10px; border: 1px solid var(--gray-200); border-radius: 6px;
+  font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--gray-900);
+  background: var(--gray-50);
+}
+.edit-input:focus { outline: none; border-color: var(--gold); }
+.btn-send-edit {
+  padding: 7px 14px; border-radius: 6px; background: var(--gold);
+  color: var(--black); border: none; font-size: 12px; font-weight: 600;
+  cursor: pointer; font-family: 'DM Sans', sans-serif; white-space: nowrap;
+}
+.edit-suggestions { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 7px; }
+.edit-sug {
+  font-size: 11px; padding: 3px 8px; border-radius: 20px;
+  background: var(--gray-100); color: var(--gray-600); cursor: pointer;
+  border: 1px solid var(--gray-200); transition: all 0.1s;
+}
+.edit-sug:hover { background: var(--gold-light); border-color: var(--gold); color: var(--black); }
+.edit-thinking {
+  font-size: 12px; color: var(--gray-400); margin-top: 8px;
+  display: none; align-items: center; gap: 6px;
+}
+.edit-thinking.visible { display: flex; }
+.dot-anim { display: flex; gap: 3px; }
+.dot-anim span {
+  width: 4px; height: 4px; border-radius: 50%; background: var(--gold);
+  animation: blink 1.2s infinite;
+}
+.dot-anim span:nth-child(2) { animation-delay: 0.2s; }
+.dot-anim span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes blink { 0%,80%,100%{opacity:0.2} 40%{opacity:1} }
+
+/* ── NOTIFICATION PANEL ── */
+.notif-panel {
+  position: fixed; top: calc(var(--topbar-h) + 8px); right: 16px;
+  width: 340px; background: var(--white); border: 1px solid var(--gray-200);
+  border-radius: 12px; z-index: 200; display: none; overflow: hidden;
+}
+.notif-panel.open { display: block; }
+.notif-header {
+  padding: 12px 16px; border-bottom: 1px solid var(--gray-100);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.notif-title { font-size: 13px; font-weight: 600; }
+.notif-clear { font-size: 11px; color: var(--blue); cursor: pointer; }
+.notif-item {
+  padding: 12px 16px; border-bottom: 1px solid var(--gray-100);
+  display: flex; gap: 10px; align-items: flex-start;
+}
+.notif-item.unread { background: #FFFBEB; }
+.notif-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 4px; }
+.notif-dot.read { background: var(--gray-200); }
+.notif-item-title { font-size: 12px; font-weight: 500; margin-bottom: 2px; }
+.notif-item-body { font-size: 11px; color: var(--gray-500); line-height: 1.5; }
+.notif-time { font-size: 10px; color: var(--gray-400); margin-top: 3px; }
+
+/* ── CALENDAR ── */
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
+.cal-day-header { text-align: center; font-size: 11px; font-weight: 500; color: var(--gray-400); padding: 6px 0; }
+.cal-day {
+  background: var(--white); border: 1px solid var(--gray-200);
+  border-radius: 8px; min-height: 120px; padding: 8px;
+}
+.cal-day-num { font-size: 12px; font-weight: 500; margin-bottom: 6px; color: var(--gray-400); }
+.cal-day.today .cal-day-num { color: var(--gold); font-weight: 600; }
+.cal-post {
+  font-size: 10px; padding: 2px 5px; border-radius: 3px; margin-bottom: 3px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer;
+}
+.cal-li { background: var(--blue-light); color: var(--blue); }
+.cal-ig { background: #FCE4EC; color: #AD1457; }
+.cal-fb { background: var(--purple-light); color: var(--purple); }
+.cal-yt { background: var(--red-light); color: var(--red); }
+
+/* ── ANALYTICS ── */
+.analytics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+.card {
+  background: var(--white); border: 1px solid var(--gray-200);
+  border-radius: 10px; padding: 16px;
+}
+.card-title { font-size: 13px; font-weight: 600; margin-bottom: 12px; color: var(--gray-700); }
+.bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.bar-label { font-size: 12px; color: var(--gray-600); width: 80px; flex-shrink: 0; }
+.bar-track { flex: 1; height: 8px; background: var(--gray-100); border-radius: 4px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; }
+.bar-val { font-size: 11px; color: var(--gray-500); width: 30px; text-align: right; }
+.lead-input {
+  width: 100%; padding: 8px; border: 1px solid var(--gray-200); border-radius: 6px;
+  font-family: 'DM Sans', sans-serif; font-size: 13px; margin-top: 6px;
+}
+.cost-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--gray-100); font-size: 13px; }
+.cost-row:last-child { border-bottom: none; }
+.cost-service { color: var(--gray-700); }
+.cost-amount { font-weight: 500; font-family: 'DM Mono', monospace; font-size: 12px; }
+.cost-status { font-size: 11px; padding: 2px 7px; border-radius: 10px; }
+.cost-ok { background: var(--green-light); color: var(--green); }
+.cost-warn { background: var(--amber-light); color: var(--amber); }
+
+.balance-bar { height: 6px; border-radius: 3px; margin: 6px 0 2px; background: var(--gray-100); overflow: hidden; }
+.balance-fill { height: 100%; border-radius: 3px; }
+.balance-green { background: var(--green); }
+.balance-amber { background: #F59E0B; }
+.balance-red { background: var(--red); }
+.balance-info { display: flex; justify-content: space-between; font-size: 11px; color: var(--gray-400); }
+
+/* ── SETTINGS ── */
+.settings-section { background: var(--white); border: 1px solid var(--gray-200); border-radius: 10px; padding: 16px; margin-bottom: 14px; }
+.settings-title { font-size: 13px; font-weight: 600; margin-bottom: 12px; color: var(--gray-700); }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.form-field label { font-size: 11px; color: var(--gray-500); display: block; margin-bottom: 4px; }
+.form-field input, .form-field textarea, .form-field select {
+  width: 100%; padding: 8px 10px; border: 1px solid var(--gray-200);
+  border-radius: 6px; font-family: 'DM Sans', sans-serif; font-size: 13px;
+  color: var(--gray-900); background: var(--gray-50);
+}
+.form-field input:focus, .form-field textarea:focus { outline: none; border-color: var(--gold); }
+.btn-save {
+  margin-top: 10px; padding: 8px 18px; border-radius: 6px;
+  background: var(--gold); color: var(--black); border: none;
+  font-size: 13px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif;
+}
+.btn-save:hover { background: var(--gold-dark); }
+.blacklist-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.blacklist-tag {
+  font-size: 12px; padding: 3px 10px; border-radius: 20px;
+  background: var(--red-light); color: var(--red); border: 1px solid #f5b7b1;
+  display: flex; align-items: center; gap: 5px;
+}
+.blacklist-remove { cursor: pointer; font-size: 14px; line-height: 1; }
+.toggle-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--gray-100); }
+.toggle-row:last-child { border-bottom: none; }
+.toggle-info { font-size: 13px; color: var(--gray-700); }
+.toggle-sub { font-size: 11px; color: var(--gray-400); }
+.toggle {
+  width: 36px; height: 20px; border-radius: 10px; background: var(--gray-200);
+  cursor: pointer; position: relative; transition: background 0.2s; flex-shrink: 0;
+}
+.toggle.on { background: var(--green); }
+.toggle-knob {
+  position: absolute; top: 2px; left: 2px; width: 16px; height: 16px;
+  border-radius: 50%; background: white; transition: left 0.2s;
+}
+.toggle.on .toggle-knob { left: 18px; }
+
+/* ── CAMPAIGN ── */
+.campaign-box { background: var(--white); border: 1px solid var(--gray-200); border-radius: 10px; padding: 16px; margin-bottom: 14px; }
+.campaign-title { font-size: 13px; font-weight: 600; margin-bottom: 10px; }
+.campaign-examples { display: flex; flex-direction: column; gap: 6px; }
+.campaign-eg {
+  font-size: 12px; color: var(--blue); cursor: pointer;
+  padding: 8px; border: 1px solid var(--gray-200); border-radius: 6px;
+  transition: all 0.1s;
+}
+.campaign-eg:hover { background: var(--blue-light); border-color: #93c5fd; }
+textarea.campaign-input {
+  width: 100%; padding: 10px; border: 1px solid var(--gray-200); border-radius: 6px;
+  font-family: 'DM Sans', sans-serif; font-size: 13px; resize: vertical;
+  background: var(--gray-50); color: var(--gray-900); min-height: 80px;
+}
+textarea.campaign-input:focus { outline: none; border-color: var(--gold); }
+
+/* ── PREVIEW OVERLAY ── */
+.preview-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.6); z-index: 300;
+  align-items: center; justify-content: center;
+}
+.preview-overlay.open { display: flex; }
+.preview-modal {
+  background: var(--white); border-radius: 16px;
+  width: 360px; overflow: hidden;
+}
+.preview-bar {
+  background: var(--gray-900); padding: 12px 16px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.preview-bar-title { font-size: 13px; color: var(--white); font-weight: 500; }
+.preview-close { color: var(--gray-400); cursor: pointer; font-size: 20px; line-height: 1; }
+.preview-phone {
+  padding: 16px; background: var(--gray-50);
+}
+.preview-post {
+  background: var(--white); border-radius: 8px; overflow: hidden;
+  border: 1px solid var(--gray-200);
+}
+.preview-img {
+  height: 160px; background: linear-gradient(135deg, #FFB800 0%, #FF6B35 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; color: white; font-weight: 500;
+}
+.preview-content { padding: 10px; }
+.preview-platform { font-size: 10px; color: var(--gray-400); margin-bottom: 6px; }
+.preview-hook { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+.preview-body-text { font-size: 12px; color: var(--gray-600); line-height: 1.5; }
+.preview-hashtags { font-size: 11px; color: var(--blue); margin-top: 6px; }
+.preview-tabs { display: flex; border-bottom: 1px solid var(--gray-200); }
+.preview-tab { flex: 1; padding: 8px; text-align: center; font-size: 11px; cursor: pointer; color: var(--gray-400); border-bottom: 2px solid transparent; }
+.preview-tab.active { color: var(--blue); border-bottom-color: var(--blue); }
+
+/* ── MISC ── */
+.page-title { font-size: 18px; font-weight: 600; margin-bottom: 16px; color: var(--gray-900); }
+.section-sub { font-size: 12px; color: var(--gray-400); margin-bottom: 14px; }
+.empty-state { text-align: center; padding: 48px; color: var(--gray-400); font-size: 13px; }
+.approve-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.week-nav { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+.week-nav-btn { padding: 6px 12px; border-radius: 6px; border: 1px solid var(--gray-200); background: var(--white); cursor: pointer; font-size: 12px; color: var(--gray-600); font-family: 'DM Sans', sans-serif; }
+.week-nav-btn:hover { background: var(--gray-100); }
+.week-label { font-size: 13px; font-weight: 500; }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="logo">
+    <div class="logo-mark">SS</div>
+    <div>
+      <div class="logo-text">Spade Supplies</div>
+      <div class="logo-sub">Content Dashboard</div>
+    </div>
+  </div>
+  <div class="topbar-center"></div>
+  <div class="topbar-right">
+    <button class="emergency-btn" id="pauseBtn" onclick="togglePause()">
+      <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><rect x="3" y="2" width="4" height="12" rx="1"/><rect x="9" y="2" width="4" height="12" rx="1"/></svg>
+      <span id="pauseLabel">Pause all</span>
+    </button>
+    <div class="notif-btn" onclick="toggleNotif()" id="notifBtn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <div class="notif-count" id="notifCount">5</div>
+    </div>
+  </div>
+</div>
+
+<!-- NOTIFICATION PANEL -->
+<div class="notif-panel" id="notifPanel">
+  <div class="notif-header">
+    <span class="notif-title">Notifications</span>
+    <span class="notif-clear" onclick="clearNotifs()">Mark all read</span>
+  </div>
+  <div id="notif-list">
+    <div class="notif-item unread">
+      <div class="notif-dot"></div>
+      <div>
+        <div class="notif-item-title">⚠ Low balance — ElevenLabs</div>
+        <div class="notif-item-body">ElevenLabs credits at ₹18 — estimated 6 days of runway remaining. Top up soon.</div>
+        <div class="notif-time">2 hours ago</div>
+      </div>
+    </div>
+    <div class="notif-item unread">
+      <div class="notif-dot"></div>
+      <div>
+        <div class="notif-item-title">📋 5 posts pending approval</div>
+        <div class="notif-item-body">Generated Monday, still unapproved. Friday posts go live in 24 hours.</div>
+        <div class="notif-time">4 hours ago</div>
+      </div>
+    </div>
+    <div class="notif-item unread">
+      <div class="notif-dot"></div>
+      <div>
+        <div class="notif-item-title">✦ Top performer this week</div>
+        <div class="notif-item-body">Atomberg fans — Instagram reached 1,240 accounts with 84 saves. Best post of the week.</div>
+        <div class="notif-time">Yesterday</div>
+      </div>
+    </div>
+    <div class="notif-item unread">
+      <div class="notif-dot"></div>
+      <div>
+        <div class="notif-item-title">🚨 Publish failed — LinkedIn</div>
+        <div class="notif-item-body">LinkedIn token expired. Post "Polycab wires: built for Indian climate" was not published. Re-authenticate in Settings.</div>
+        <div class="notif-time">2 days ago</div>
+      </div>
+    </div>
+    <div class="notif-item">
+      <div class="notif-dot read"></div>
+      <div>
+        <div class="notif-item-title">Today's schedule — 3 posts live</div>
+        <div class="notif-item-body">LinkedIn 9 AM · Instagram 8 PM · Facebook 7 PM</div>
+        <div class="notif-time">3 days ago</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="nav-section">
+    <div class="nav-label">Content</div>
+    <div class="nav-item active" onclick="showPage('queue', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg>
+      Review queue <span class="nav-badge" id="badge-pending">20</span>
+    </div>
+    <div class="nav-item" onclick="showPage('calendar', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Calendar
+    </div>
+    <div class="nav-item" onclick="showPage('campaign', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      Campaign prompt
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Insights</div>
+    <div class="nav-item" onclick="showPage('analytics', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      Analytics
+    </div>
+    <div class="nav-item" onclick="showPage('costs', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      Cost & balance
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Setup</div>
+    <div class="nav-item" onclick="showPage('settings', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      Settings
+    </div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+
+<!-- QUEUE PAGE -->
+<div class="page active" id="page-queue">
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="stat-label">Total posts</div>
+      <div class="stat-value" id="stat-total">20</div>
+      <div class="stat-sub">this week</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Pending review</div>
+      <div class="stat-value" style="color:var(--amber)" id="stat-pending">20</div>
+      <div class="stat-sub">need approval</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Approved</div>
+      <div class="stat-value" style="color:var(--green)" id="stat-approved">0</div>
+      <div class="stat-sub">ready to publish</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">QA flagged</div>
+      <div class="stat-value" style="color:var(--red)" id="stat-flagged">2</div>
+      <div class="stat-sub">need attention</div>
+    </div>
+  </div>
+
+  <div class="approve-bar">
+    <div class="filter-bar" style="margin:0;flex:1">
+      <button class="filter-chip active" onclick="setFilter('all',this)">All</button>
+      <button class="filter-chip" onclick="setFilter('LinkedIn',this)">LinkedIn</button>
+      <button class="filter-chip" onclick="setFilter('Instagram',this)">Instagram</button>
+      <button class="filter-chip" onclick="setFilter('Facebook',this)">Facebook</button>
+      <button class="filter-chip" onclick="setFilter('YouTube Shorts',this)">YouTube</button>
+      <button class="filter-chip" onclick="setFilter('flagged',this)">⚠ Flagged</button>
+      <button class="filter-chip" onclick="setFilter('pending',this)">Pending only</button>
+    </div>
+    <button class="filter-chip gold" onclick="approveAll()">✓ Approve all visible</button>
+  </div>
+
+  <div id="post-list"></div>
+</div>
+
+<!-- CALENDAR PAGE -->
+<div class="page" id="page-calendar">
+  <div class="week-nav">
+    <button class="week-nav-btn">← Prev week</button>
+    <span class="week-label">Week of 9 May 2026</span>
+    <button class="week-nav-btn">Next week →</button>
+  </div>
+  <div class="cal-grid">
+    <div class="cal-day-header">Mon 9</div>
+    <div class="cal-day-header">Tue 10</div>
+    <div class="cal-day-header">Wed 11</div>
+    <div class="cal-day-header">Thu 12</div>
+    <div class="cal-day-header">Fri 13</div>
+    <div class="cal-day-header">Sat 14</div>
+    <div class="cal-day-header">Sun 15</div>
+
+    <div class="cal-day today">
+      <div class="cal-day-num">9</div>
+      <div class="cal-post cal-li" title="Why copper wiring matters">🔗 LinkedIn — Copper wiring</div>
+      <div class="cal-post cal-ig" title="Finolex: 65 years of trust">📸 Instagram — Finolex</div>
+      <div class="cal-post cal-fb" title="Safe wiring — EN/Tamil/Malayalam">📘 Facebook ×3</div>
+    </div>
+    <div class="cal-day">
+      <div class="cal-day-num">10</div>
+      <div class="cal-post cal-ig">📸 Instagram — Schneider</div>
+      <div class="cal-post cal-fb">📘 Facebook ×3</div>
+    </div>
+    <div class="cal-day">
+      <div class="cal-day-num">11</div>
+      <div class="cal-post cal-li">🔗 LinkedIn — LED lighting</div>
+      <div class="cal-post cal-yt">▶ YouTube ×3</div>
+    </div>
+    <div class="cal-day">
+      <div class="cal-day-num">12</div>
+      <div class="cal-post cal-ig">📸 Instagram — Atomberg</div>
+      <div class="cal-post cal-fb">📘 Facebook ×3</div>
+    </div>
+    <div class="cal-day">
+      <div class="cal-day-num">13</div>
+      <div class="cal-post cal-li">🔗 LinkedIn — Polycab</div>
+    </div>
+    <div class="cal-day">
+      <div class="cal-day-num">14</div>
+      <div class="cal-post cal-ig">📸 Instagram — Havells</div>
+      <div class="cal-post cal-fb">📘 Facebook ×3</div>
+      <div class="cal-post cal-yt">▶ YouTube ×3</div>
+    </div>
+    <div class="cal-day">
+      <div class="cal-day-num">15</div>
+    </div>
+  </div>
+</div>
+
+<!-- CAMPAIGN PAGE -->
+<div class="page" id="page-campaign">
+  <div class="campaign-box">
+    <div class="campaign-title">Campaign brief</div>
+    <p style="font-size:12px;color:var(--gray-400);margin-bottom:10px">Describe what you want this week. Claude generates the full content plan around it.</p>
+    <textarea class="campaign-input" id="campaignInput" placeholder="e.g. Run a summer campaign on Atomberg fans for Tamil Nadu homeowners. Focus on energy savings during peak heat months."></textarea>
+    <button class="btn-save" onclick="sendCampaign()" style="margin-top:10px">Generate campaign →</button>
+  </div>
+  <div class="campaign-box">
+    <div class="campaign-title">Quick examples</div>
+    <div class="campaign-examples">
+      <div class="campaign-eg" onclick="fillCampaign(this)">"Focus on Atomberg fans this week for Tamil Nadu homeowners — summer energy savings angle"</div>
+      <div class="campaign-eg" onclick="fillCampaign(this)">"Kerala monsoon season — plumbing safety, pipe quality, and water damage prevention"</div>
+      <div class="campaign-eg" onclick="fillCampaign(this)">"Home automation campaign for new builders in Coimbatore — Lutron wired vs Schneider wireless"</div>
+      <div class="campaign-eg" onclick="fillCampaign(this)">"Diwali home upgrade series — lighting, fans, and smart switches"</div>
+      <div class="campaign-eg" onclick="fillCampaign(this)">"Contractor-focused week — fast delivery, bulk pricing, 50+ brand availability"</div>
+    </div>
+  </div>
+</div>
+
+<!-- ANALYTICS PAGE -->
+<div class="page" id="page-analytics">
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="stat-label">Total reach this week</div>
+      <div class="stat-value">4,820</div>
+      <div class="stat-sub" style="color:var(--green)">↑ 18% vs last week</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Best platform</div>
+      <div class="stat-value" style="font-size:16px;padding-top:4px">Instagram</div>
+      <div class="stat-sub">avg 320 reach/post</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">WhatsApp leads</div>
+      <div class="stat-value">12</div>
+      <div class="stat-sub">this week (manual)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Top topic</div>
+      <div class="stat-value" style="font-size:14px;padding-top:6px">Atomberg fans</div>
+      <div class="stat-sub">84 saves on Instagram</div>
+    </div>
+  </div>
+
+  <div class="analytics-grid">
+    <div class="card">
+      <div class="card-title">Pillar performance — avg reach</div>
+      <div class="bar-row">
+        <div class="bar-label">Education</div>
+        <div class="bar-track"><div class="bar-fill" style="width:85%;background:var(--blue)"></div></div>
+        <div class="bar-val">340</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Product</div>
+        <div class="bar-track"><div class="bar-fill" style="width:72%;background:var(--purple)"></div></div>
+        <div class="bar-val">290</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Use Case</div>
+        <div class="bar-track"><div class="bar-fill" style="width:60%;background:var(--green)"></div></div>
+        <div class="bar-val">240</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Promotion</div>
+        <div class="bar-track"><div class="bar-fill" style="width:28%;background:var(--amber)"></div></div>
+        <div class="bar-val">110</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Platform performance — avg reach</div>
+      <div class="bar-row">
+        <div class="bar-label">Instagram</div>
+        <div class="bar-track"><div class="bar-fill" style="width:90%;background:#AD1457"></div></div>
+        <div class="bar-val">320</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">YouTube</div>
+        <div class="bar-track"><div class="bar-fill" style="width:70%;background:var(--red)"></div></div>
+        <div class="bar-val">248</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">LinkedIn</div>
+        <div class="bar-track"><div class="bar-fill" style="width:55%;background:var(--blue)"></div></div>
+        <div class="bar-val">195</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Facebook</div>
+        <div class="bar-track"><div class="bar-fill" style="width:42%;background:var(--purple)"></div></div>
+        <div class="bar-val">150</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">WhatsApp leads — log this week</div>
+      <p style="font-size:12px;color:var(--gray-400);margin-bottom:8px">Enter leads received this week from social media posts</p>
+      <input class="lead-input" type="number" placeholder="e.g. 12" value="12">
+      <button class="btn-save" style="margin-top:8px;width:100%">Save lead count</button>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Top posts this week</div>
+      <div style="font-size:12px">
+        <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--gray-100)">
+          <div><span style="background:var(--amber-light);color:var(--amber);font-size:10px;padding:1px 5px;border-radius:3px">IG</span> <span style="color:var(--gray-700)">Atomberg fans</span></div>
+          <div style="font-weight:500">84 saves</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--gray-100)">
+          <div><span style="background:var(--blue-light);color:var(--blue);font-size:10px;padding:1px 5px;border-radius:3px">LI</span> <span style="color:var(--gray-700)">LED lighting math</span></div>
+          <div style="font-weight:500">340 reach</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:6px 0">
+          <div><span style="background:var(--red-light);color:var(--red);font-size:10px;padding:1px 5px;border-radius:3px">YT</span> <span style="color:var(--gray-700)">Smart switches</span></div>
+          <div style="font-weight:500">620 views</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- COSTS PAGE -->
+<div class="page" id="page-costs">
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="stat-label">This week</div>
+      <div class="stat-value">₹11.20</div>
+      <div class="stat-sub">across all APIs</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">This month</div>
+      <div class="stat-value">₹654</div>
+      <div class="stat-sub">vs ₹657 budget</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">API calls today</div>
+      <div class="stat-value">38</div>
+      <div class="stat-sub">Claude + fal.ai + ElevenLabs</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Projected annual</div>
+      <div class="stat-value">₹7,848</div>
+      <div class="stat-sub">≈ $94 USD</div>
+    </div>
+  </div>
+
+  <div class="analytics-grid">
+    <div class="card">
+      <div class="card-title">Live balances</div>
+      <div style="margin-bottom:14px">
+        <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px">
+          <span style="font-weight:500">Claude Haiku API</span>
+          <span style="color:var(--green)">Healthy — 28 days</span>
+        </div>
+        <div class="balance-bar"><div class="balance-fill balance-green" style="width:90%"></div></div>
+        <div class="balance-info"><span>₹46 used</span><span>₹954 remaining</span></div>
+      </div>
+      <div style="margin-bottom:14px">
+        <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px">
+          <span style="font-weight:500">fal.ai (images + video)</span>
+          <span style="color:var(--green)">Healthy — 21 days</span>
+        </div>
+        <div class="balance-bar"><div class="balance-fill balance-green" style="width:75%"></div></div>
+        <div class="balance-info"><span>₹159 used</span><span>₹498 remaining</span></div>
+      </div>
+      <div>
+        <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px">
+          <span style="font-weight:500">ElevenLabs voiceover</span>
+          <span style="color:var(--amber)">⚠ Low — 6 days</span>
+        </div>
+        <div class="balance-bar"><div class="balance-fill balance-amber" style="width:22%"></div></div>
+        <div class="balance-info"><span>₹64 used</span><span>₹18 remaining</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Monthly cost breakdown</div>
+      <div class="cost-row">
+        <span class="cost-service">Claude Haiku API</span>
+        <span class="cost-amount">₹46 / mo</span>
+        <span class="cost-status cost-ok">OK</span>
+      </div>
+      <div class="cost-row">
+        <span class="cost-service">fal.ai — Kling video (8/mo)</span>
+        <span class="cost-amount">₹498 / mo</span>
+        <span class="cost-status cost-ok">OK</span>
+      </div>
+      <div class="cost-row">
+        <span class="cost-service">fal.ai — Flux images (20/mo)</span>
+        <span class="cost-amount">₹33 / mo</span>
+        <span class="cost-status cost-ok">OK</span>
+      </div>
+      <div class="cost-row">
+        <span class="cost-service">ElevenLabs voiceover</span>
+        <span class="cost-amount">₹18 / mo</span>
+        <span class="cost-status cost-warn">Top up</span>
+      </div>
+      <div class="cost-row">
+        <span class="cost-service">Make.com</span>
+        <span class="cost-amount">₹0 / mo</span>
+        <span class="cost-status cost-ok">Free</span>
+      </div>
+      <div class="cost-row">
+        <span class="cost-service">Vercel + GitHub</span>
+        <span class="cost-amount">₹0 / mo</span>
+        <span class="cost-status cost-ok">Free</span>
+      </div>
+      <div class="cost-row" style="border-top:2px solid var(--gray-200);margin-top:4px;padding-top:12px">
+        <span style="font-weight:600">Total</span>
+        <span class="cost-amount" style="font-size:14px;font-weight:600">₹595 / mo</span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:0">
+    <div class="card-title">Cost per run — this week</div>
+    <div style="font-size:12px;color:var(--gray-400);margin-bottom:10px">Every time the scheduler fires, all API costs are logged here.</div>
+    <table style="width:100%;font-size:12px;border-collapse:collapse">
+      <thead><tr style="color:var(--gray-400);border-bottom:1px solid var(--gray-200)">
+        <td style="padding:6px 0">Date & time</td>
+        <td>Stage</td>
+        <td>Tokens / units</td>
+        <td style="text-align:right">Cost (₹)</td>
+      </tr></thead>
+      <tbody>
+        <tr style="border-bottom:1px solid var(--gray-100)"><td style="padding:7px 0;color:var(--gray-600)">Mon 9 May, 07:01</td><td>Claude — content gen</td><td style="font-family:'DM Mono',monospace">14,483 tok</td><td style="text-align:right;font-family:'DM Mono',monospace">₹3.62</td></tr>
+        <tr style="border-bottom:1px solid var(--gray-100)"><td style="padding:7px 0;color:var(--gray-600)">Mon 9 May, 07:04</td><td>Claude — QA agent</td><td style="font-family:'DM Mono',monospace">6,210 tok</td><td style="text-align:right;font-family:'DM Mono',monospace">₹1.55</td></tr>
+        <tr style="border-bottom:1px solid var(--gray-100)"><td style="padding:7px 0;color:var(--gray-600)">Mon 9 May, 07:12</td><td>fal.ai — 8 images</td><td style="font-family:'DM Mono',monospace">8 generations</td><td style="text-align:right;font-family:'DM Mono',monospace">₹3.32</td></tr>
+        <tr style="border-bottom:1px solid var(--gray-100)"><td style="padding:7px 0;color:var(--gray-600)">Mon 9 May, 07:28</td><td>ElevenLabs — voiceover</td><td style="font-family:'DM Mono',monospace">6 scripts</td><td style="text-align:right;font-family:'DM Mono',monospace">₹1.84</td></tr>
+        <tr><td style="padding:7px 0;color:var(--gray-600)">Mon 9 May, 07:31</td><td>fal.ai — 2 videos</td><td style="font-family:'DM Mono',monospace">2 generations</td><td style="text-align:right;font-family:'DM Mono',monospace">₹0.87</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SETTINGS PAGE -->
+<div class="page" id="page-settings">
+  <div class="settings-section">
+    <div class="settings-title">CTA settings</div>
+    <p style="font-size:12px;color:var(--gray-400);margin-bottom:12px">Update once — all future generated posts use these values automatically.</p>
+    <div class="form-grid">
+      <div class="form-field"><label>WhatsApp number</label><input type="text" value="7204406785"></div>
+      <div class="form-field"><label>Website</label><input type="text" value="spadesupplies.com"></div>
+      <div class="form-field"><label>Email</label><input type="text" value="info@spadesupplies.com"></div>
+      <div class="form-field"><label>2-hr callback number</label><input type="text" value="7204406785"></div>
+    </div>
+    <button class="btn-save">Save CTA settings</button>
+  </div>
+
+  <div class="settings-section">
+    <div class="settings-title">Blacklist words</div>
+    <p style="font-size:12px;color:var(--gray-400);margin-bottom:10px">Posts containing these words are auto-flagged by the QA agent before reaching your queue.</p>
+    <div class="blacklist-tags" id="blacklist-tags">
+      <div class="blacklist-tag">price guaranteed <span class="blacklist-remove" onclick="removeTag(this)">×</span></div>
+      <div class="blacklist-tag">cheapest <span class="blacklist-remove" onclick="removeTag(this)">×</span></div>
+      <div class="blacklist-tag">Havells is better <span class="blacklist-remove" onclick="removeTag(this)">×</span></div>
+      <div class="blacklist-tag">warranty void <span class="blacklist-remove" onclick="removeTag(this)">×</span></div>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:10px">
+      <input type="text" id="blacklist-input" placeholder="Add a word or phrase..." style="flex:1;padding:7px 10px;border:1px solid var(--gray-200);border-radius:6px;font-family:'DM Sans',sans-serif;font-size:13px;background:var(--gray-50)">
+      <button class="btn-save" onclick="addTag()" style="margin-top:0">Add</button>
+    </div>
+  </div>
+
+  <div class="settings-section">
+    <div class="settings-title">Posting schedule — best times</div>
+    <div class="form-grid">
+      <div class="form-field"><label>LinkedIn</label><input type="time" value="09:00"></div>
+      <div class="form-field"><label>Instagram</label><input type="time" value="20:00"></div>
+      <div class="form-field"><label>Facebook</label><input type="time" value="19:00"></div>
+      <div class="form-field"><label>YouTube Shorts</label><input type="time" value="18:00"></div>
+    </div>
+    <button class="btn-save">Save schedule</button>
+  </div>
+
+  <div class="settings-section">
+    <div class="settings-title">Seasonal triggers</div>
+    <div class="toggle-row">
+      <div><div class="toggle-info">Summer campaign (Apr–Jun)</div><div class="toggle-sub">Fans, earthing, surge protection — Tamil Nadu heat focus</div></div>
+      <div class="toggle on" onclick="this.classList.toggle('on')"><div class="toggle-knob"></div></div>
+    </div>
+    <div class="toggle-row">
+      <div><div class="toggle-info">Monsoon campaign (Jun–Sep)</div><div class="toggle-sub">Plumbing safety, pipe quality, water damage — Kerala focus</div></div>
+      <div class="toggle on" onclick="this.classList.toggle('on')"><div class="toggle-knob"></div></div>
+    </div>
+    <div class="toggle-row">
+      <div><div class="toggle-info">Diwali home upgrades (Oct–Nov)</div><div class="toggle-sub">Lighting, smart switches, automation — all regions</div></div>
+      <div class="toggle" onclick="this.classList.toggle('on')"><div class="toggle-knob"></div></div>
+    </div>
+    <div class="toggle-row">
+      <div><div class="toggle-info">Pongal new builds (Jan)</div><div class="toggle-sub">Complete electrical checklist, wiring, distribution boards</div></div>
+      <div class="toggle" onclick="this.classList.toggle('on')"><div class="toggle-knob"></div></div>
+    </div>
+  </div>
+
+  <div class="settings-section">
+    <div class="settings-title">QA agent thresholds</div>
+    <div class="toggle-row">
+      <div><div class="toggle-info">Flag language mixing</div><div class="toggle-sub">Alert when Tamil/Malayalam posts contain other language characters</div></div>
+      <div class="toggle on" onclick="this.classList.toggle('on')"><div class="toggle-knob"></div></div>
+    </div>
+    <div class="toggle-row">
+      <div><div class="toggle-info">Flag price mentions</div><div class="toggle-sub">Alert when Claude includes specific ₹ amounts in posts</div></div>
+      <div class="toggle on" onclick="this.classList.toggle('on')"><div class="toggle-knob"></div></div>
+    </div>
+    <div class="toggle-row">
+      <div><div class="toggle-info">Flag wrong CTA numbers</div><div class="toggle-sub">Alert if post CTA doesn't match saved WhatsApp number</div></div>
+      <div class="toggle on" onclick="this.classList.toggle('on')"><div class="toggle-knob"></div></div>
+    </div>
+    <div class="toggle-row">
+      <div><div class="toggle-info">Auto-reject QA score below 60</div><div class="toggle-sub">Posts scoring below 60 are auto-rejected, not just flagged</div></div>
+      <div class="toggle" onclick="this.classList.toggle('on')"><div class="toggle-knob"></div></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<!-- PREVIEW OVERLAY -->
+<div class="preview-overlay" id="previewOverlay" onclick="closePreview(event)">
+  <div class="preview-modal">
+    <div class="preview-bar">
+      <div class="preview-tabs">
+        <div class="preview-tab active" onclick="switchPreview('instagram',this)" style="color:white;border-bottom-color:var(--gold)">Instagram</div>
+        <div class="preview-tab" onclick="switchPreview('linkedin',this)" style="color:var(--gray-400)">LinkedIn</div>
+        <div class="preview-tab" onclick="switchPreview('facebook',this)" style="color:var(--gray-400)">Facebook</div>
+      </div>
+      <div class="preview-close" onclick="document.getElementById('previewOverlay').classList.remove('open')">×</div>
+    </div>
+    <div class="preview-phone">
+      <div class="preview-post">
+        <div class="preview-img" id="preview-img">Image preview</div>
+        <div class="preview-content">
+          <div class="preview-platform" id="preview-platform">Instagram · Spade Supplies</div>
+          <div class="preview-hook" id="preview-hook">Hook text goes here</div>
+          <div class="preview-body-text" id="preview-body">Body text goes here...</div>
+          <div class="preview-hashtags" id="preview-hashtags">#hashtags</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const posts = [
+  {id:1,platform:"LinkedIn",language:"English",pillar:"Education",topic:"Why copper wiring matters for safety",hook:"Your home's electrical safety starts with one choice: copper wiring.",body:"Copper conducts electricity efficiently, resists corrosion, and lasts 50+ years. Poor-quality wires overheat, causing fires. That's why we stock Finolex and Polycab—brands trusted by electricians across India. Genuine copper wiring isn't a luxury; it's protection for your family.",cta:"Verify your wiring quality. WhatsApp 7204406785 for expert advice.",hashtags:"#ElectricalSafety #CopperWiring #HomeConstruction #IndianElectronics",image_prompt:"Close-up of genuine copper wire cross-section showing pure copper core, branded packaging of Finolex or Polycab in background",qa:{score:92,flags:[]}},
+  {id:2,platform:"Instagram",language:"English",pillar:"Product/Brand",topic:"Finolex wires: 65 years of trust",hook:"When electricians choose, they choose Finolex.",body:"Trusted since 1959, same year Spade Supplies opened. Finolex wires are ISI-certified, fire-resistant, and built for Kerala's humidity and Tamil Nadu's heat. Your home deserves genuine.",cta:"Shop Finolex at spadesupplies.com or WhatsApp 7204406785",hashtags:"#FinolexWires #GenuineProducts #ElectricalSupplies #HomeWiring #SpadeSupplies",image_prompt:"Finolex wire coil beautifully displayed with ISI certification mark visible",qa:{score:88,flags:[]}},
+  {id:3,platform:"Facebook",language:"English",pillar:"Education",topic:"Copper wiring safety guide",hook:"Is your home's wiring safe? Here's how to check.",body:"Look for ISI marks on wire packaging. Genuine copper should be reddish, not silvery. If wires feel thin or packaging looks cheap, stop. Bad wiring causes 40% of home fires. We stock Finolex, Polycab, and Anchor—all certified.",cta:"Need help? WhatsApp us at 7204406785. Free consultation.",hashtags:"#HomeSafety #ElectricalWiring #TrustedBrands #SpadeSupplies",image_prompt:"Split-screen: genuine ISI-marked wire vs counterfeit wire, safety checklist overlay",qa:{score:94,flags:[]}},
+  {id:4,platform:"Facebook",language:"Tamil",pillar:"Education",topic:"Copper wiring safety guide",hook:"உங்கள் வீட்டின் மின் வசதி பாதுகாப்பாக இருக்கிறதா?",body:"கம்பியின் பொதியில் ISI குறி இருக்கிறதா என்று பார்க்கவும். உண்மையான செப்பு சிவப்பு நிறமாக இருக்க வேண்டும். மோசமான கம்பி 40% வீட்டு தீ விபத்துகளை ஏற்படுத்துகிறது.",cta:"7204406785க்கு WhatsApp செய்யவும். இலவச ஆலோசனை.",hashtags:"#வீட்டுபாதுகாப்பு #மின்வசதி #நம்பகமான #SpadeSupplies",image_prompt:"Split-screen: genuine ISI-marked wire vs counterfeit wire, safety checklist overlay",qa:{score:96,flags:[]}},
+  {id:5,platform:"Facebook",language:"Malayalam",pillar:"Education",topic:"Copper wiring safety guide",hook:"നിങ്ങളുടെ വീടിന്റെ വൈദ്യുത സാധനം സുരക്ഷിതമാണോ?",body:"വയർ പാക്കേജിംഗിൽ ISI മാർക്ക് ഉണ്ടോ എന്ന് പരിശോധിക്കുക. യഥാർത്ഥ ചെമ്പ് ചുവപ്പ് നിറമാണ്. മോശം വയർ 40% വീട്ടിലെ തീ അപകടങ്ങൾ ഉണ്ടാക്കുന്നു.",cta:"7204406785ലേക്ക് WhatsApp ചെയ്യുക. സ്വതന്ത്ര ഉപദേശം.",hashtags:"#വീട്ടുസുരക്ഷ #വൈദ്യുത #വിശ്വസ്ത #SpadeSupplies",image_prompt:"Split-screen: genuine ISI-marked wire vs counterfeit wire",qa:{score:95,flags:[]}},
+  {id:6,platform:"Instagram",language:"English",pillar:"Product/Brand",topic:"Schneider smart switches for modern homes",hook:"Your switches are 20 years old. Time for an upgrade.",body:"Schneider smart switches let you control lights from your phone. No rewiring needed. Perfect for Kerala's monsoons—sealed contacts prevent moisture damage. Modern, safe, and affordable.",cta:"Explore smart switches: WhatsApp 7204406785",hashtags:"#SmartHome #SchneiderElectric #HomeAutomation #ModernLiving #TechUpgrade",image_prompt:"Schneider smart switch on white wall, smartphone showing control app",qa:{score:58,flags:["Caption slightly too long for Instagram — 82 words, aim for 80","Verify Schneider moisture resistance claim with spec sheet"]}},
+  {id:7,platform:"Facebook",language:"English",pillar:"Use Case",topic:"Kitchen renovation: plumbing essentials",hook:"Renovating your kitchen? Don't skip the plumbing.",body:"A leaking pipe ruins walls and budgets. Use Jaquar or Astral pipes—tested for Indian water quality. We help 500+ homeowners monthly get it right. Same-day dispatch in Tamil Nadu and Kerala.",cta:"Plan your kitchen plumbing. WhatsApp 7204406785",hashtags:"#KitchenRenovation #Plumbing #HomeImprovement #SpadeSupplies",image_prompt:"Modern kitchen renovation, Jaquar or Astral pipes visible, professional plumber at work",qa:{score:90,flags:[]}},
+  {id:8,platform:"LinkedIn",language:"English",pillar:"Education",topic:"LED lighting saves money: the math",hook:"Still using incandescent bulbs? You're throwing money away.",body:"LED bulbs use 75% less energy than incandescent, last 25,000 hours, and cost ₹150-300. A 60W bulb costs ₹500/month in electricity. Switch to 9W LED: ₹75/month. Payback in 6 months. Philips, Crompton, and Luker LEDs available at Spade Supplies.",cta:"Calculate your savings. WhatsApp 7204406785 for a quote.",hashtags:"#LEDLighting #EnergySavings #SustainableLiving #CostReduction",image_prompt:"Split-screen: old incandescent bulb vs modern LED bulb, electricity bill comparison",qa:{score:72,flags:["Price figures (₹500/month) should be verified or removed — avoid specific cost claims"]}},
+  {id:9,platform:"Instagram",language:"English",pillar:"Product/Brand",topic:"Atomberg fans: quiet & efficient",hook:"A fan that's actually quiet? Yes, it exists.",body:"Atomberg fans use BLDC motors—50% less electricity, zero noise. Perfect for bedrooms and offices. Built for 15 years of daily use. Available at Spade Supplies with same-day delivery in TN & Kerala.",cta:"Get Atomberg today: WhatsApp 7204406785",hashtags:"#AtombergFans #QuietFan #EnergyEfficient #HomeComfort #SmartChoice",image_prompt:"Atomberg fan mounted on ceiling in modern bedroom, person sleeping peacefully nearby",qa:{score:91,flags:[]}},
+  {id:10,platform:"LinkedIn",language:"English",pillar:"Product/Brand",topic:"Polycab wires: built for Indian climate",hook:"Monsoons destroy ordinary wires. Polycab doesn't.",body:"Polycab's PVC insulation resists moisture, heat, and UV rays. Tested in Kerala's 100% humidity and Tamil Nadu's 45°C heat. ISI-certified, fire-resistant, and backed by 50+ years in the market.",cta:"Upgrade to Polycab. WhatsApp 7204406785 for bulk pricing.",hashtags:"#PolycabWires #IndianElectronics #QualityAssurance #HomeConstruction",image_prompt:"Polycab wire in monsoon setting, water droplets on insulation, ISI certification badge",qa:{score:89,flags:[]}},
+  {id:11,platform:"Instagram",language:"English",pillar:"Product/Brand",topic:"Lutron smart lighting: the future of homes",hook:"Imagine controlling every light in your home from one app.",body:"Lutron wired smart systems let you dim, schedule, and automate lighting. No batteries, no WiFi issues. Professional-grade reliability. Perfect for villas and new constructions.",cta:"Explore Lutron: WhatsApp 7204406785",hashtags:"#LutronLighting #SmartHome #Automation #HomeAutomation #FutureHome",image_prompt:"Lutron app on smartphone, smart dimmer switch on wall, modern living room",qa:{score:93,flags:[]}},
+  {id:12,platform:"YouTube Shorts",language:"English",pillar:"Education",topic:"Smart switches vs traditional: speed test",hook:"Traditional switch: flip it, wait. Smart switch: tap phone, instant.",body:null,cta:"WhatsApp 7204406785 for smart switch installation",hashtags:"#SmartHome #Technology #HomeAutomation #Comparison",image_prompt:null,voiceover:"Traditional switches? So last decade. Schneider smart switches let you control lights from anywhere. No wiring changes needed. Install today, enjoy tomorrow. Spade Supplies makes it easy. WhatsApp 7204406785.",qa:{score:88,flags:[]}},
+  {id:13,platform:"YouTube Shorts",language:"Tamil",pillar:"Education",topic:"Smart switches vs traditional: speed test",hook:"பாரம்பரிய சுவிச்: திருப்பு, காத்திரு. ஸ்மார்ட் சுவிச்: ஃபோனை தட்டு, உடனடி.",body:null,cta:"7204406785க்கு WhatsApp செய்யவும்",hashtags:"#ஸ்மார்ட்ஹோம் #தொழில்நுட்பம்",voiceover:"பாரம்பரிய சுவிச்? இத்தனை பழையது. ஷ்நெய்டர் ஸ்மார்ட் சுவிச்கள் எங்கிருந்தும் விளக்குகளை கட்டுப்படுத்த விடுகின்றன.",qa:{score:97,flags:[]}},
+  {id:14,platform:"YouTube Shorts",language:"Malayalam",pillar:"Education",topic:"Smart switches vs traditional: speed test",hook:"പരമ്പരാഗത സ്വിച്ച്: തിരിക്കുക, കാത്തിരിക്കുക. സ്മാർട്ട് സ്വിച്ച്: ഫോൺ ടാപ്പ്, തൽക്ഷണം.",body:null,cta:"7204406785ലേക്ക് WhatsApp ചെയ്യുക",hashtags:"#സ്മാർട്ടഹോം #ടെക്നോളജി",voiceover:"പരമ്പരാഗത സ്വിച്ചുകൾ? അത്ര പഴയത്. ഷ്നെയ്ഡർ സ്മാർട്ട് സ്വിച്ചുകൾ എവിടെനിന്നും വെളിച്ചം നിയന്ത്രിക്കാൻ അനുവദിക്കുന്നു.",qa:{score:96,flags:[]}},
+  {id:15,platform:"Instagram",language:"English",pillar:"Product/Brand",topic:"Havells fans: designed for Indian homes",hook:"A fan that handles 45°C heat without breaking a sweat.",body:"Havells fans are engineered for India's climate. Rust-proof, noise-free, and energy-efficient. Perfect for bedrooms, kitchens, and living rooms. Available at Spade Supplies with installation support.",cta:"Get Havells today: WhatsApp 7204406785",hashtags:"#HavellsFans #HomeComfort #IndianBrand #EnergyEfficient #CoolingComfort",image_prompt:"Havells ceiling fan in modern Indian home, thermometer showing 45°C outside",qa:{score:91,flags:[]}},
+  {id:16,platform:"LinkedIn",language:"English",pillar:"Promotion",topic:"50+ years of trust: Spade Supplies story",hook:"Since 1959, we've been India's trusted electrical partner.",body:"65 years. 10,000+ satisfied customers. 50+ brands. Zero compromises on quality. From small homes to large commercial projects, Spade Supplies has been there. Same-day dispatch in Tamil Nadu and Kerala.",cta:"Join our family: WhatsApp 7204406785 or visit spadesupplies.com",hashtags:"#SpadeSupplies #Heritage #TrustedBrand #65Years #ElectricalSupplies",image_prompt:"Timeline graphic showing 1959 to 2024, Spade Supplies storefront, happy customers",qa:{score:85,flags:[]}},
+  {id:17,platform:"Instagram",language:"English",pillar:"Product/Brand",topic:"Legrand switchgear: European quality",hook:"European engineering at Indian prices. Yes, really.",body:"Legrand switchgear combines French precision with affordability. Modular, safe, and perfect for modern homes. Available exclusively at Spade Supplies.",cta:"Explore Legrand: WhatsApp 7204406785",hashtags:"#LegrandSwitchgear #EuropeanQuality #HomeUpgrade #ModernLiving #SpadeSupplies",image_prompt:"Legrand switchgear installation on modern wall, luxury home interior",qa:{score:87,flags:[]}},
+  {id:18,platform:"Facebook",language:"English",pillar:"Education",topic:"Why genuine electrical products matter",hook:"Counterfeit wires cost ₹50 less. They cost your home everything.",body:"Fake electrical products overheat, short-circuit, and cause fires. Real products have ISI marks, proper packaging, and traceable serial numbers. We've been selling genuine products since 1959.",cta:"Verify your products. WhatsApp 7204406785",hashtags:"#GenuineProducts #ElectricalSafety #HomeProtection #SpadeSupplies",image_prompt:"Genuine vs counterfeit electrical products side-by-side, ISI mark closeup",qa:{score:93,flags:[]}},
+  {id:19,platform:"Instagram",language:"English",pillar:"Product/Brand",topic:"Anchor switches: affordable reliability",hook:"Quality switches don't have to break the bank.",body:"Anchor switches are ISI-certified, durable, and affordable. Perfect for homes, offices, and small businesses. Trusted by electricians across India.",cta:"Shop Anchor switches: WhatsApp 7204406785",hashtags:"#AnchorSwitches #AffordableQuality #HomeElectrics #TrustedBrand #SpadeSupplies",image_prompt:"Anchor switch on white wall, professional installation, ISI mark",qa:{score:90,flags:[]}},
+  {id:20,platform:"LinkedIn",language:"English",pillar:"Promotion",topic:"Same-day dispatch: our promise",hook:"Order today, install tomorrow. Only in Tamil Nadu and Kerala.",body:"Spade Supplies guarantees same-day dispatch for orders placed before 2 PM. No waiting, no delays. 50+ brands across wires, switches, fans, lighting, and plumbing.",cta:"Order now: WhatsApp 7204406785 or spadesupplies.com",hashtags:"#FastDelivery #SameDayDispatch #CustomerService #SpadeSupplies #TamilNadu #Kerala",image_prompt:"Delivery van with Spade Supplies branding, order being packed quickly",qa:{score:88,flags:[]}}
+];
+
+const states = {};
+posts.forEach(p => states[p.id] = p.qa.score < 60 ? 'flagged' : 'pending');
+let currentFilter = 'all';
+let paused = false;
+let notifsOpen = false;
+let unreadCount = 4;
+
+function platformClass(p) {
+  if(p==='LinkedIn') return 'ptag-li';
+  if(p==='Instagram') return 'ptag-ig';
+  if(p==='YouTube Shorts') return 'ptag-yt';
+  return 'ptag-fb';
+}
+function platformShort(p) {
+  if(p==='LinkedIn') return 'LI';
+  if(p==='Instagram') return 'IG';
+  if(p==='YouTube Shorts') return 'YT';
+  return 'FB';
+}
+function qaClass(score) {
+  if(score >= 80) return 'qa-good';
+  if(score >= 60) return 'qa-warn';
+  return 'qa-bad';
+}
+
+function renderPosts() {
+  const list = document.getElementById('post-list');
+  let filtered = posts.filter(p => {
+    if(currentFilter === 'pending') return states[p.id] === 'pending';
+    if(currentFilter === 'flagged') return p.qa.flags.length > 0 || states[p.id] === 'flagged';
+    if(currentFilter === 'all') return true;
+    return p.platform === currentFilter;
+  });
+  if(filtered.length === 0) { list.innerHTML = '<div class="empty-state">No posts match this filter.</div>'; return; }
+  list.innerHTML = filtered.map(p => {
+    const s = states[p.id];
+    const isFlagged = p.qa.flags.length > 0;
+    return `<div class="post-card ${s}" id="card-${p.id}">
+      <div class="post-head">
+        <span class="ptag ${platformClass(p.platform)}">${p.platform}</span>
+        <span class="ltag">${p.language}</span>
+        <span class="pill-tag">${p.pillar}</span>
+        <span style="flex:1;font-size:13px;font-weight:500;color:var(--gray-700)">${p.topic}</span>
+        <span class="qa-score ${qaClass(p.qa.score)}">QA ${p.qa.score}</span>
+      </div>
+      ${isFlagged ? `<div class="qa-flag">⚠ QA agent flagged: ${p.qa.flags.join(' · ')}</div>` : ''}
+      <div class="post-hook">"${p.hook}"</div>
+      ${p.body ? `<div class="post-body">${p.body}</div>` : ''}
+      ${p.voiceover ? `<div class="post-img-prompt">🎙 Voiceover: ${p.voiceover}</div>` : ''}
+      ${p.image_prompt ? `<div class="post-img-prompt">🖼 ${p.image_prompt}</div>` : ''}
+      <div class="post-cta">📲 ${p.cta}</div>
+      <div class="post-hashtags">${p.hashtags}</div>
+      <div class="post-actions">
+        ${s === 'pending' || s === 'flagged' ? `
+          <button class="btn-approve" onclick="approve(${p.id})">✓ Approve</button>
+          <button class="btn-reject" onclick="reject(${p.id})">Reject</button>
+          <button class="btn-edit" onclick="toggleEdit(${p.id})">✏ Edit</button>
+          <button class="btn-preview" onclick="openPreview(${p.id})">Preview</button>
+          <button class="btn-ab">A/B variant</button>
+        ` : ''}
+        ${s === 'approved' ? `<span class="status-label status-approved">✓ Approved — scheduled</span><button class="btn-reject btn-undo" onclick="reset(${p.id})">Undo</button>` : ''}
+        ${s === 'rejected' ? `<span class="status-label status-rejected">✕ Rejected</span><button class="btn-approve btn-undo" onclick="approve(${p.id})">Restore</button>` : ''}
+      </div>
+      <div class="edit-panel" id="edit-${p.id}">
+        <div class="edit-label">Edit assistant — describe what to change</div>
+        <div class="edit-row">
+          <input class="edit-input" id="edit-input-${p.id}" placeholder="e.g. Make the hook more dramatic. Fix the Tamil. Add Kerala context.">
+          <button class="btn-send-edit" onclick="sendEdit(${p.id})">Rewrite →</button>
+        </div>
+        <div class="edit-suggestions">
+          <span class="edit-sug" onclick="fillEdit(${p.id},'Make this punchier and shorter')">Make punchier</span>
+          <span class="edit-sug" onclick="fillEdit(${p.id},'Add Kerala monsoon context')">Add Kerala angle</span>
+          <span class="edit-sug" onclick="fillEdit(${p.id},'Fix language — use only Tamil script, no mixing')">Fix Tamil</span>
+          <span class="edit-sug" onclick="fillEdit(${p.id},'Make it more suitable for LinkedIn professionals')">LinkedIn tone</span>
+          <span class="edit-sug" onclick="fillEdit(${p.id},'Remove price figures, keep the message')">Remove prices</span>
+        </div>
+        <div class="edit-thinking" id="thinking-${p.id}">
+          <div class="dot-anim"><span></span><span></span><span></span></div>
+          Rewriting post...
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  updateStats();
+}
+
+function approve(id) { states[id] = 'approved'; renderPosts(); }
+function reject(id) { states[id] = 'rejected'; renderPosts(); }
+function reset(id) { const p = posts.find(x=>x.id===id); states[id] = p.qa.flags.length > 0 ? 'flagged' : 'pending'; renderPosts(); }
+
+function approveAll() {
+  posts.filter(p => {
+    if(currentFilter === 'all' || currentFilter === 'pending') return states[p.id] === 'pending' || states[p.id] === 'flagged';
+    return p.platform === currentFilter;
+  }).forEach(p => states[p.id] = 'approved');
+  renderPosts();
+}
+
+function toggleEdit(id) {
+  const panel = document.getElementById('edit-'+id);
+  panel.classList.toggle('open');
+}
+function fillEdit(id, text) {
+  document.getElementById('edit-input-'+id).value = text;
+}
+function sendEdit(id) {
+  const val = document.getElementById('edit-input-'+id).value.trim();
+  if(!val) return;
+  const thinking = document.getElementById('thinking-'+id);
+  thinking.classList.add('visible');
+  setTimeout(() => { thinking.classList.remove('visible'); alert('Post rewritten. In the live dashboard, this calls Claude API and updates the post content inline.'); }, 1800);
+}
+
+function updateStats() {
+  const total = posts.length;
+  const approved = Object.values(states).filter(s=>s==='approved').length;
+  const rejected = Object.values(states).filter(s=>s==='rejected').length;
+  const flagged = posts.filter(p=>p.qa.flags.length>0 && states[p.id]!=='approved' && states[p.id]!=='rejected').length;
+  const pending = total - approved - rejected;
+  document.getElementById('stat-total').textContent = total;
+  document.getElementById('stat-pending').textContent = pending;
+  document.getElementById('stat-approved').textContent = approved;
+  document.getElementById('stat-flagged').textContent = flagged;
+  document.getElementById('badge-pending').textContent = pending;
+}
+
+function setFilter(f, btn) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-chip').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderPosts();
+}
+
+function showPage(name, el) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  el.classList.add('active');
+  if(notifsOpen) toggleNotif();
+}
+
+function togglePause() {
+  paused = !paused;
+  const btn = document.getElementById('pauseBtn');
+  const lbl = document.getElementById('pauseLabel');
+  if(paused) { btn.classList.add('paused'); lbl.textContent = 'Publishing paused'; }
+  else { btn.classList.remove('paused'); lbl.textContent = 'Pause all'; }
+}
+
+function toggleNotif() {
+  notifsOpen = !notifsOpen;
+  document.getElementById('notifPanel').classList.toggle('open', notifsOpen);
+}
+
+function clearNotifs() {
+  document.querySelectorAll('.notif-item').forEach(i => i.classList.remove('unread'));
+  document.querySelectorAll('.notif-dot').forEach(d => { d.classList.add('read'); });
+  unreadCount = 0;
+  document.getElementById('notifCount').style.display = 'none';
+}
+
+function openPreview(id) {
+  const p = posts.find(x=>x.id===id);
+  document.getElementById('preview-hook').textContent = p.hook;
+  document.getElementById('preview-body').textContent = p.body || p.voiceover || '';
+  document.getElementById('preview-hashtags').textContent = p.hashtags;
+  document.getElementById('preview-platform').textContent = p.platform + ' · Spade Supplies';
+  document.getElementById('preview-img').textContent = p.image_prompt ? 'AI image: ' + p.image_prompt.slice(0,40)+'...' : 'Video content';
+  document.getElementById('previewOverlay').classList.add('open');
+}
+
+function closePreview(e) {
+  if(e.target === document.getElementById('previewOverlay')) {
+    document.getElementById('previewOverlay').classList.remove('open');
+  }
+}
+
+function switchPreview(platform, el) {
+  document.querySelectorAll('.preview-tab').forEach(t => { t.classList.remove('active'); t.style.color='var(--gray-400)'; t.style.borderBottomColor='transparent'; });
+  el.classList.add('active'); el.style.color='white'; el.style.borderBottomColor='var(--gold)';
+  document.getElementById('preview-platform').textContent = platform.charAt(0).toUpperCase()+platform.slice(1) + ' · Spade Supplies';
+}
+
+function sendCampaign() {
+  const val = document.getElementById('campaignInput').value.trim();
+  if(val) alert('Campaign brief submitted to Make.com. Claude will generate a new content plan and it will appear in your review queue within 2 minutes.');
+}
+
+function fillCampaign(el) {
+  document.getElementById('campaignInput').value = el.textContent.replace(/"/g,'');
+}
+
+function removeTag(el) { el.parentElement.remove(); }
+function addTag() {
+  const input = document.getElementById('blacklist-input');
+  const val = input.value.trim();
+  if(!val) return;
+  const tag = document.createElement('div');
+  tag.className = 'blacklist-tag';
+  tag.innerHTML = val + ' <span class="blacklist-remove" onclick="removeTag(this)">×</span>';
+  document.getElementById('blacklist-tags').appendChild(tag);
+  input.value = '';
+}
+
+document.addEventListener('click', e => {
+  if(notifsOpen && !e.target.closest('#notifPanel') && !e.target.closest('#notifBtn')) {
+    notifsOpen = false;
+    document.getElementById('notifPanel').classList.remove('open');
+  }
+});
+
+renderPosts();
+</script>
+</body>
+</html>
