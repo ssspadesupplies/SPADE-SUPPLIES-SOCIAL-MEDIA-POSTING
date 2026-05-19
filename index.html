@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0046)file:///C:/Users/PRIYANKA/Downloads/index.html -->
+<!-- saved from url=(0048)file:///C:/Users/PRIYANKA/Downloads/index_2.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -453,7 +453,9 @@ textarea.campaign-input:focus { outline: none; border-color: var(--gold); }
       <div class="logo-sub">Content Dashboard</div>
     </div>
   </div>
-  <div class="topbar-center"></div>
+  <div class="topbar-center">
+    <span id="week-label-display" style="font-size:12px;color:var(--gray-400)"></span>
+  </div>
   <div class="topbar-right">
     <button class="emergency-btn" id="pauseBtn" onclick="togglePause()">
       <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><rect x="3" y="2" width="4" height="12" rx="1"></rect><rect x="9" y="2" width="4" height="12" rx="1"></rect></svg>
@@ -524,6 +526,10 @@ textarea.campaign-input:focus { outline: none; border-color: var(--gold); }
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"></path><rect x="9" y="3" width="6" height="4" rx="1"></rect><line x1="9" y1="12" x2="15" y2="12"></line><line x1="9" y1="16" x2="13" y2="16"></line></svg>
       Review queue <span class="nav-badge" id="badge-pending">20</span>
     </div>
+    <div class="nav-item" onclick="showPage(&#39;postprod&#39;, this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"></rect><path d="M8 21h8M12 17v4"></path><path d="M10 9l5 3-5 3V9z"></path></svg>
+      Post-production <span class="nav-badge" id="badge-media">0</span>
+    </div>
     <div class="nav-item" onclick="showPage(&#39;calendar&#39;, this)">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
       Calendar
@@ -546,6 +552,10 @@ textarea.campaign-input:focus { outline: none; border-color: var(--gold); }
   </div>
   <div class="nav-section">
     <div class="nav-label">Setup</div>
+    <div class="nav-item" onclick="showPage(&#39;design&#39;, this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"></circle><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"></path><path d="M12 8v4l3 3"></path></svg>
+      Design language
+    </div>
     <div class="nav-item" onclick="showPage(&#39;settings&#39;, this)">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"></circle><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"></path></svg>
       Settings
@@ -555,6 +565,46 @@ textarea.campaign-input:focus { outline: none; border-color: var(--gold); }
 
 <!-- MAIN CONTENT -->
 <div class="main">
+
+<!-- POST-PRODUCTION PAGE -->
+<div class="page" id="page-postprod">
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="stat-label">Text approved</div>
+      <div class="stat-value" style="color:var(--blue)" id="pp-approved">0</div>
+      <div class="stat-sub">awaiting media gen</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Media generating</div>
+      <div class="stat-value" style="color:var(--amber)" id="pp-generating">0</div>
+      <div class="stat-sub">fal.ai processing</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Ready to review</div>
+      <div class="stat-value" style="color:var(--purple)" id="pp-ready">0</div>
+      <div class="stat-sub">media generated</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Fully approved</div>
+      <div class="stat-value" style="color:var(--green)" id="pp-done">0</div>
+      <div class="stat-sub">ready to publish</div>
+    </div>
+  </div>
+
+  <div style="display:flex;align-items:center;gap:6px;margin-bottom:20px;background:var(--white);border:1px solid var(--gray-200);border-radius:10px;padding:14px 20px;overflow-x:auto">
+    <div style="font-size:11px;font-weight:500;padding:5px 10px;border-radius:20px;background:var(--amber-light);color:var(--amber);white-space:nowrap">1 · Text review</div>
+    <div style="color:var(--gray-300)">→</div>
+    <div style="font-size:11px;font-weight:500;padding:5px 10px;border-radius:20px;background:var(--blue-light);color:var(--blue);white-space:nowrap">2 · Text approved</div>
+    <div style="color:var(--gray-300)">→</div>
+    <div style="font-size:11px;font-weight:500;padding:5px 10px;border-radius:20px;background:var(--purple-light);color:var(--purple);white-space:nowrap">3 · Media generating</div>
+    <div style="color:var(--gray-300)">→</div>
+    <div style="font-size:11px;font-weight:500;padding:5px 10px;border-radius:20px;background:#FEE2E2;color:var(--red);white-space:nowrap">4 · Media review</div>
+    <div style="color:var(--gray-300)">→</div>
+    <div style="font-size:11px;font-weight:500;padding:5px 10px;border-radius:20px;background:var(--green-light);color:var(--green);white-space:nowrap">5 · Published</div>
+  </div>
+
+  <div id="postprod-list"></div>
+</div>
 
 <!-- QUEUE PAGE -->
 <div class="page active" id="page-queue">
@@ -886,8 +936,111 @@ textarea.campaign-input:focus { outline: none; border-color: var(--gold); }
   </div>
 </div>
 
-<!-- SETTINGS PAGE -->
-<div class="page" id="page-settings">
+<!-- DESIGN LANGUAGE PAGE -->
+<div class="page" id="page-design">
+
+  <div class="settings-section">
+    <div class="settings-title">🎨 Design language</div>
+    <p style="font-size:12px;color:var(--gray-400);margin-bottom:14px">Define your visual style once. These rules are automatically appended to every image and video prompt sent to fal.ai — keeping all generated visuals consistent.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+      <div class="form-field">
+        <label>Visual style</label>
+        <select id="dl-style">
+          <option value="Professional product photography, clean studio background">Professional product photography</option>
+          <option value="Bold industrial aesthetic, dramatic lighting">Bold industrial</option>
+          <option value="Warm domestic setting, natural Indian home environment">Warm &amp; domestic</option>
+          <option value="Minimal modern, lots of white space, elegant">Minimal &amp; modern</option>
+          <option value="Photorealistic, editorial, magazine quality">Editorial / magazine</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label>Lighting</label>
+        <select id="dl-lighting">
+          <option value="Bright even studio lighting, no harsh shadows">Bright studio</option>
+          <option value="Soft natural daylight, warm South Indian afternoon light">Natural daylight</option>
+          <option value="Dramatic contrast lighting, deep shadows">Dramatic contrast</option>
+          <option value="Golden hour warm light, lifestyle feel">Golden hour</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label>Colour emphasis</label>
+        <select id="dl-color">
+          <option value="Gold #FFB800 accent elements, dark charcoal backgrounds, clean white space">Gold + charcoal (brand)</option>
+          <option value="Warm earth tones, terracotta, cream backgrounds">Warm earth tones</option>
+          <option value="Clean white and grey backgrounds, product-forward">Clean white/grey</option>
+          <option value="Vibrant and bold, high saturation colours">Vibrant &amp; bold</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label>Setting / context</label>
+        <select id="dl-setting">
+          <option value="South Indian home context, modern apartment or villa">South Indian home</option>
+          <option value="Construction site context, under-renovation home">Under construction</option>
+          <option value="Professional electrical workshop or showroom">Showroom / workshop</option>
+          <option value="Mixed — product on clean background, no setting">Product only, no setting</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-field" style="margin-bottom:12px">
+      <label>Composition rules (what to always do)</label>
+      <textarea id="dl-dos" rows="3" style="width:100%;padding:8px 10px;border:1px solid var(--gray-200);border-radius:6px;font-family:&#39;DM Sans&#39;,sans-serif;font-size:13px;background:var(--gray-50);resize:vertical">Show brand packaging or product label clearly. Include ISI certification mark when relevant. Show product in real-use context. South Indian aesthetic — tiles, granite, local architectural details where appropriate.</textarea>
+    </div>
+
+    <div class="form-field" style="margin-bottom:12px">
+      <label>What to always avoid</label>
+      <textarea id="dl-donts" rows="3" style="width:100%;padding:8px 10px;border:1px solid var(--gray-200);border-radius:6px;font-family:&#39;DM Sans&#39;,sans-serif;font-size:13px;background:var(--gray-50);resize:vertical">No cartoon or illustration style. No Western home aesthetics (wooden floors, fireplaces). No stock photo feel. No people's faces — hands and products only. No competitor branding visible.</textarea>
+    </div>
+
+    <div class="form-field" style="margin-bottom:12px">
+      <label>Always mention in every prompt</label>
+      <textarea id="dl-always" rows="2" style="width:100%;padding:8px 10px;border:1px solid var(--gray-200);border-radius:6px;font-family:&#39;DM Sans&#39;,sans-serif;font-size:13px;background:var(--gray-50);resize:vertical">High resolution, sharp focus, professional commercial photography quality, 1:1 square format suitable for Instagram and LinkedIn.</textarea>
+    </div>
+
+    <button class="btn-save" onclick="saveDesignLanguage()">Save design language</button>
+  </div>
+
+  <div class="settings-section">
+    <div class="settings-title">👁 Composed prompt preview</div>
+    <p style="font-size:12px;color:var(--gray-400);margin-bottom:10px">This is what gets sent to fal.ai for every image. Your design language is automatically appended to Claude's image prompt.</p>
+    <div style="background:var(--gray-50);border:1px solid var(--gray-200);border-radius:8px;padding:12px;font-size:12px;font-family:&#39;DM Mono&#39;,monospace;color:var(--gray-700);line-height:1.7" id="prompt-preview">
+      [Claude image prompt] + [your design language rules]
+    </div>
+    <button class="btn-save" style="margin-top:10px;background:var(--gray-900);color:white" onclick="updatePromptPreview()">Preview composed prompt</button>
+  </div>
+
+  <div class="settings-section">
+    <div class="settings-title">📐 Video style guide</div>
+    <p style="font-size:12px;color:var(--gray-400);margin-bottom:12px">Rules applied to every Kling video prompt.</p>
+    <div class="form-field" style="margin-bottom:12px">
+      <label>Camera movement</label>
+      <select id="dl-camera">
+        <option value="Slow subtle zoom in, steady camera">Slow zoom in</option>
+        <option value="Static camera, no movement, product display">Static / no movement</option>
+        <option value="Gentle pan left to right, cinematic">Gentle pan</option>
+        <option value="Slow dolly forward, depth of field">Dolly forward</option>
+      </select>
+    </div>
+    <div class="form-field" style="margin-bottom:12px">
+      <label>Video mood</label>
+      <select id="dl-vmood">
+        <option value="Calm and trustworthy, professional feel">Calm &amp; trustworthy</option>
+        <option value="Energetic and dynamic, fast cuts">Energetic &amp; dynamic</option>
+        <option value="Aspirational lifestyle, warm and inviting">Aspirational lifestyle</option>
+        <option value="Educational and informative, clean transitions">Educational &amp; clean</option>
+      </select>
+    </div>
+    <div class="form-field">
+      <label>Video avoid</label>
+      <textarea id="dl-vdonts" rows="2" style="width:100%;padding:8px 10px;border:1px solid var(--gray-200);border-radius:6px;font-family:&#39;DM Sans&#39;,sans-serif;font-size:13px;background:var(--gray-50);resize:vertical">No shaky handheld camera. No fast cuts or strobing. No text overlays (added separately). No celebrity faces.</textarea>
+    </div>
+    <button class="btn-save" style="margin-top:10px" onclick="saveDesignLanguage()">Save video style</button>
+  </div>
+
+</div>
+
+
   <div class="settings-section">
     <div class="settings-title">CTA settings</div>
     <p style="font-size:12px;color:var(--gray-400);margin-bottom:12px">Update once — all future generated posts use these values automatically.</p>
@@ -967,7 +1120,7 @@ textarea.campaign-input:focus { outline: none; border-color: var(--gold); }
   </div>
 </div>
 
-</div><!-- /main -->
+<!-- /main -->
 
 <!-- PREVIEW OVERLAY -->
 <div class="preview-overlay" id="previewOverlay" onclick="closePreview(event)">
@@ -995,6 +1148,80 @@ textarea.campaign-input:focus { outline: none; border-color: var(--gold); }
 </div>
 
 <script>
+// ── DESIGN LANGUAGE ──
+const defaultDesignLanguage = {
+  style: "Professional product photography, clean studio background",
+  lighting: "Bright even studio lighting, no harsh shadows",
+  color: "Gold #FFB800 accent elements, dark charcoal backgrounds, clean white space",
+  setting: "South Indian home context, modern apartment or villa",
+  dos: "Show brand packaging or product label clearly. Include ISI certification mark when relevant. Show product in real-use context.",
+  donts: "No cartoon or illustration style. No Western home aesthetics. No stock photo feel. No people's faces — hands and products only.",
+  always: "High resolution, sharp focus, professional commercial photography quality, 1:1 square format.",
+  camera: "Slow subtle zoom in, steady camera",
+  vmood: "Calm and trustworthy, professional feel",
+  vdonts: "No shaky handheld camera. No fast cuts. No text overlays."
+};
+
+let designLanguage = JSON.parse(localStorage.getItem('spade_dl') || 'null') || {...defaultDesignLanguage};
+
+function getDesignLanguageSuffix() {
+  return `Style: ${designLanguage.style}. Lighting: ${designLanguage.lighting}. Colors: ${designLanguage.color}. Setting: ${designLanguage.setting}. Do: ${designLanguage.dos} Avoid: ${designLanguage.donts}. ${designLanguage.always}`;
+}
+
+function saveDesignLanguage() {
+  designLanguage.style = document.getElementById('dl-style')?.value || designLanguage.style;
+  designLanguage.lighting = document.getElementById('dl-lighting')?.value || designLanguage.lighting;
+  designLanguage.color = document.getElementById('dl-color')?.value || designLanguage.color;
+  designLanguage.setting = document.getElementById('dl-setting')?.value || designLanguage.setting;
+  designLanguage.dos = document.getElementById('dl-dos')?.value || designLanguage.dos;
+  designLanguage.donts = document.getElementById('dl-donts')?.value || designLanguage.donts;
+  designLanguage.always = document.getElementById('dl-always')?.value || designLanguage.always;
+  designLanguage.camera = document.getElementById('dl-camera')?.value || designLanguage.camera;
+  designLanguage.vmood = document.getElementById('dl-vmood')?.value || designLanguage.vmood;
+  designLanguage.vdonts = document.getElementById('dl-vdonts')?.value || designLanguage.vdonts;
+  localStorage.setItem('spade_dl', JSON.stringify(designLanguage));
+  updatePromptPreview();
+  alert('Design language saved! All image and video prompts will now use these rules.');
+}
+
+function updatePromptPreview() {
+  const el = document.getElementById('prompt-preview');
+  if (!el) return;
+  const examplePrompt = posts[0]?.image_prompt || 'Close-up of copper wire with ISI certification mark visible';
+  el.textContent = examplePrompt + ' · ' + getDesignLanguageSuffix();
+}
+
+function togglePromptEditor(id) {
+  const el = document.getElementById('prompt-editor-' + id);
+  if (!el) return;
+  const isOpen = el.style.display !== 'none';
+  el.style.display = isOpen ? 'none' : 'block';
+  if (!isOpen) refreshComposed(id);
+}
+
+function refreshComposed(id) {
+  const imgTA = document.getElementById('img-prompt-' + id);
+  const composed = document.getElementById('composed-img-' + id);
+  if (imgTA && composed) {
+    composed.textContent = imgTA.value + ' · ' + getDesignLanguageSuffix();
+  }
+}
+
+function savePrompts(id) {
+  const p = posts.find(x => x.id === id);
+  if (!p) return;
+  const imgTA = document.getElementById('img-prompt-' + id);
+  const vidTA = document.getElementById('vid-prompt-' + id);
+  const voTA = document.getElementById('vo-prompt-' + id);
+  if (imgTA) p.image_prompt = imgTA.value;
+  if (vidTA) p.video_prompt = vidTA.value;
+  if (voTA) p.voiceover = voTA.value;
+  togglePromptEditor(id);
+  // Update the displayed prompt in the card
+  renderPosts();
+  addNotif('✏ Prompts updated', `Image/video prompts saved for: ${p.topic}`);
+}
+
 // ── GOOGLE SHEETS CONFIG ──
 const SHEET_ID = '1CH_XHQWxXY65fNlkMNyJvnhdI9KFnlsEMQ84e--ybek';
 const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=tsv&gid=0`;
@@ -1144,12 +1371,44 @@ function renderPosts() {
         ${s === 'pending' || s === 'flagged' ? `
           <button class="btn-approve" onclick="approve(${p.id})">✓ Approve</button>
           <button class="btn-reject" onclick="reject(${p.id})">Reject</button>
-          <button class="btn-edit" onclick="toggleEdit(${p.id})">✏ Edit</button>
+          <button class="btn-edit" onclick="toggleEdit(${p.id})">✏ Edit text</button>
+          <button class="btn-edit" onclick="togglePromptEditor(${p.id})" style="background:var(--purple-light);color:var(--purple);border-color:#c4b5fd">🖼 Edit prompts</button>
           <button class="btn-preview" onclick="openPreview(${p.id})">Preview</button>
-          <button class="btn-ab">A/B variant</button>
         ` : ''}
         ${s === 'approved' ? `<span class="status-label status-approved">✓ Approved — scheduled</span><button class="btn-reject btn-undo" onclick="reset(${p.id})">Undo</button>` : ''}
         ${s === 'rejected' ? `<span class="status-label status-rejected">✕ Rejected</span><button class="btn-approve btn-undo" onclick="approve(${p.id})">Restore</button>` : ''}
+      </div>
+
+      <!-- PROMPT EDITOR -->
+      <div class="edit-panel" id="prompt-editor-${p.id}" style="background:var(--purple-light);border-radius:8px;padding:12px;margin-top:10px;display:none">
+        <div style="font-size:11px;font-weight:600;color:var(--purple);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.05em">🖼 Image & video prompt editor</div>
+        ${p.image_prompt ? `
+        <div style="margin-bottom:10px">
+          <div style="font-size:11px;color:var(--gray-500);margin-bottom:4px">Image prompt (sent to Flux / fal.ai)</div>
+          <textarea id="img-prompt-${p.id}" rows="3" style="width:100%;padding:8px;border:1px solid #c4b5fd;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:12px;background:white;resize:vertical">${p.image_prompt}</textarea>
+        </div>
+        <div style="margin-bottom:10px">
+          <div style="font-size:11px;color:var(--gray-500);margin-bottom:4px">Full composed prompt (with your design language appended)</div>
+          <div id="composed-img-${p.id}" style="background:white;border:1px solid #c4b5fd;border-radius:6px;padding:8px;font-size:11px;font-family:'DM Mono',monospace;color:var(--gray-600);line-height:1.6;max-height:80px;overflow-y:auto">${p.image_prompt} · ${getDesignLanguageSuffix()}</div>
+          <button onclick="refreshComposed(${p.id})" style="font-size:11px;padding:3px 8px;border-radius:4px;border:1px solid #c4b5fd;background:white;color:var(--purple);cursor:pointer;margin-top:4px">↻ Refresh preview</button>
+        </div>
+        ` : ''}
+        ${p.video_prompt ? `
+        <div style="margin-bottom:10px">
+          <div style="font-size:11px;color:var(--gray-500);margin-bottom:4px">Video prompt (sent to Kling / fal.ai)</div>
+          <textarea id="vid-prompt-${p.id}" rows="3" style="width:100%;padding:8px;border:1px solid #c4b5fd;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:12px;background:white;resize:vertical">${p.video_prompt}</textarea>
+        </div>
+        ` : ''}
+        ${p.voiceover ? `
+        <div style="margin-bottom:10px">
+          <div style="font-size:11px;color:var(--gray-500);margin-bottom:4px">Voiceover script (sent to ElevenLabs)</div>
+          <textarea id="vo-prompt-${p.id}" rows="3" style="width:100%;padding:8px;border:1px solid #c4b5fd;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:12px;background:white;resize:vertical">${p.voiceover}</textarea>
+        </div>
+        ` : ''}
+        <div style="display:flex;gap:8px;margin-top:4px">
+          <button onclick="savePrompts(${p.id})" style="padding:6px 14px;border-radius:6px;background:var(--purple);color:white;border:none;font-size:12px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif">Save prompts</button>
+          <button onclick="togglePromptEditor(${p.id})" style="padding:6px 12px;border-radius:6px;background:white;color:var(--gray-600);border:1px solid #c4b5fd;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif">Close</button>
+        </div>
       </div>
       <div class="edit-panel" id="edit-${p.id}">
         <div class="edit-label">Edit assistant — describe what to change</div>
@@ -1174,9 +1433,186 @@ function renderPosts() {
   updateStats();
 }
 
-function approve(id) { states[id] = 'approved'; renderPosts(); }
-function reject(id) { states[id] = 'rejected'; renderPosts(); }
-function reset(id) { const p = posts.find(x=>x.id===id); states[id] = p.qa.flags.length > 0 ? 'flagged' : 'pending'; renderPosts(); }
+// ── POST-PRODUCTION STATE ──
+// mediaStates tracks: null | 'generating' | 'ready' | 'approved'
+const mediaStates = {};
+const mediaAssets = {}; // { id: { imageUrl, videoUrl, audioUrl } }
+
+function approve(id) {
+  states[id] = 'approved';
+  // Move to post-production
+  mediaStates[id] = 'awaiting';
+  renderPosts();
+  renderPostProd();
+  updateStats();
+  addNotif('✓ Post approved', `Moved to post-production queue: ${posts.find(p=>p.id===id)?.topic}`);
+}
+function reject(id) { states[id] = 'rejected'; renderPosts(); updateStats(); }
+function reset(id) { const p = posts.find(x=>x.id===id); states[id] = p.qa.flags.length > 0 ? 'flagged' : 'pending'; delete mediaStates[id]; renderPosts(); renderPostProd(); updateStats(); }
+
+function simulateMediaGeneration(id) {
+  mediaStates[id] = 'generating';
+  renderPostProd();
+  // Simulate generation delay (3 seconds)
+  setTimeout(() => {
+    mediaStates[id] = 'ready';
+    mediaAssets[id] = {
+      imageUrl: `https://picsum.photos/seed/${id}/600/600`,
+      videoUrl: null,
+      audioUrl: null
+    };
+    renderPostProd();
+    const p = posts.find(x=>x.id===id);
+    addNotif('🖼 Media ready', `Image generated for: ${p?.topic} — ready for review`);
+    document.getElementById('badge-media').textContent = Object.values(mediaStates).filter(s=>s==='ready').length;
+  }, 3000);
+}
+
+function approveMedia(id) {
+  mediaStates[id] = 'approved';
+  renderPostProd();
+  updatePPStats();
+  const p = posts.find(x=>x.id===id);
+  addNotif('✅ Media approved', `${p?.topic} is fully approved and ready to publish`);
+}
+
+function regenerateMedia(id) {
+  mediaStates[id] = 'generating';
+  mediaAssets[id] = null;
+  renderPostProd();
+  setTimeout(() => {
+    mediaStates[id] = 'ready';
+    mediaAssets[id] = {
+      imageUrl: `https://picsum.photos/seed/${id + 100}/600/600`,
+      videoUrl: null,
+      audioUrl: null
+    };
+    renderPostProd();
+    addNotif('🔄 Media regenerated', `New image ready for review: ${posts.find(p=>p.id===id)?.topic}`);
+  }, 3000);
+}
+
+function renderPostProd() {
+  const list = document.getElementById('postprod-list');
+  if (!list) return;
+
+  const ppPosts = posts.filter(p => states[p.id] === 'approved' || mediaStates[p.id]);
+  updatePPStats();
+
+  if (ppPosts.length === 0) {
+    list.innerHTML = `<div style="text-align:center;padding:60px;color:var(--gray-400)">
+      <div style="font-size:32px;margin-bottom:12px">🎬</div>
+      <div style="font-size:14px;font-weight:500;margin-bottom:6px">No posts in post-production yet</div>
+      <div style="font-size:12px">Approve posts in the Review queue to move them here.</div>
+    </div>`;
+    return;
+  }
+
+  list.innerHTML = ppPosts.map(p => {
+    const ms = mediaStates[p.id] || 'awaiting';
+    const assets = mediaAssets[p.id];
+    const hasImage = assets?.imageUrl;
+
+    const statusBadge = {
+      awaiting: `<span style="background:var(--blue-light);color:var(--blue);font-size:11px;padding:3px 10px;border-radius:20px;font-weight:500">Text approved — awaiting media gen</span>`,
+      generating: `<span style="background:var(--amber-light);color:var(--amber);font-size:11px;padding:3px 10px;border-radius:20px;font-weight:500">⏳ Generating media...</span>`,
+      ready: `<span style="background:var(--purple-light);color:var(--purple);font-size:11px;padding:3px 10px;border-radius:20px;font-weight:500">🎨 Media ready — review below</span>`,
+      approved: `<span style="background:var(--green-light);color:var(--green);font-size:11px;padding:3px 10px;border-radius:20px;font-weight:500">✅ Fully approved — ready to publish</span>`
+    }[ms];
+
+    return `<div style="background:var(--white);border:1px solid var(--gray-200);border-radius:10px;margin-bottom:14px;overflow:hidden">
+
+      <!-- POST HEADER -->
+      <div style="padding:14px 16px;border-bottom:1px solid var(--gray-100);display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+        <span class="ptag ${platformClass(p.platform)}">${p.platform}</span>
+        <span class="ltag">${p.language}</span>
+        <span style="font-size:13px;font-weight:500;flex:1">${p.topic}</span>
+        ${statusBadge}
+      </div>
+
+      <!-- SPLIT VIEW: TEXT LEFT, MEDIA RIGHT -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0">
+
+        <!-- LEFT: POST TEXT -->
+        <div style="padding:16px;border-right:1px solid var(--gray-100)">
+          <div style="font-size:11px;font-weight:600;color:var(--gray-400);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px">Post content</div>
+          <div style="font-size:13px;font-weight:600;margin-bottom:6px">"${p.hook}"</div>
+          ${p.body ? `<div style="font-size:12px;color:var(--gray-600);line-height:1.6;margin-bottom:8px">${p.body}</div>` : ''}
+          ${p.voiceover ? `<div style="font-size:11px;color:var(--gray-500);background:var(--gray-50);padding:6px 8px;border-radius:4px;margin-bottom:8px;font-style:italic">🎙 ${p.voiceover}</div>` : ''}
+          <div style="font-size:12px;color:var(--blue);margin-bottom:4px">📲 ${p.cta}</div>
+          <div style="font-size:11px;color:var(--gray-400)">${p.hashtags}</div>
+          ${p.image_prompt ? `
+          <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--gray-100)">
+            <div style="font-size:11px;font-weight:500;color:var(--gray-400);margin-bottom:4px">Image prompt</div>
+            <div style="font-size:11px;color:var(--gray-600);font-style:italic;line-height:1.5">${p.image_prompt}</div>
+          </div>` : ''}
+        </div>
+
+        <!-- RIGHT: GENERATED MEDIA -->
+        <div style="padding:16px">
+          <div style="font-size:11px;font-weight:600;color:var(--gray-400);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px">Generated media</div>
+
+          ${ms === 'awaiting' ? `
+            <div style="border:2px dashed var(--gray-200);border-radius:8px;padding:32px;text-align:center">
+              <div style="font-size:24px;margin-bottom:8px">🖼</div>
+              <div style="font-size:13px;font-weight:500;color:var(--gray-600);margin-bottom:12px">No media generated yet</div>
+              ${p.image_prompt ? `<button onclick="simulateMediaGeneration(${p.id})" style="padding:8px 16px;border-radius:6px;background:var(--gold);color:var(--black);border:none;font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif">Generate image →</button>` : '<div style="font-size:12px;color:var(--gray-400)">No image prompt for this post</div>'}
+            </div>
+          ` : ''}
+
+          ${ms === 'generating' ? `
+            <div style="border:2px dashed var(--amber);border-radius:8px;padding:32px;text-align:center;background:var(--amber-light)">
+              <div style="font-size:24px;margin-bottom:8px">⏳</div>
+              <div style="font-size:13px;font-weight:500;color:var(--amber)">Generating with fal.ai...</div>
+              <div style="font-size:12px;color:var(--amber);margin-top:4px">This takes 10–30 seconds</div>
+            </div>
+          ` : ''}
+
+          ${ms === 'ready' && hasImage ? `
+            <div>
+              <img src="${assets.imageUrl}" style="width:100%;border-radius:8px;border:1px solid var(--gray-200);display:block;margin-bottom:10px" alt="Generated image">
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <button onclick="approveMedia(${p.id})" style="padding:7px 14px;border-radius:6px;background:var(--green-light);color:var(--green);border:1px solid #a3d4b8;font-size:12px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif">✓ Approve image</button>
+                <button onclick="regenerateMedia(${p.id})" style="padding:7px 14px;border-radius:6px;background:var(--gray-100);color:var(--gray-600);border:1px solid var(--gray-200);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif">↻ Regenerate</button>
+                <button onclick="togglePromptEditor(${p.id})" style="padding:7px 14px;border-radius:6px;background:var(--purple-light);color:var(--purple);border:1px solid #c4b5fd;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif">✏ Edit prompt</button>
+              </div>
+            </div>
+          ` : ''}
+
+          ${ms === 'approved' ? `
+            <div>
+              ${hasImage ? `<img src="${assets.imageUrl}" style="width:100%;border-radius:8px;border:2px solid var(--green);display:block;margin-bottom:10px" alt="Approved image">` : ''}
+              <div style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--green-light);border-radius:8px">
+                <span style="font-size:16px">✅</span>
+                <div>
+                  <div style="font-size:12px;font-weight:600;color:var(--green)">Media approved</div>
+                  <div style="font-size:11px;color:var(--green)">This post is ready to publish on ${p.platform}</div>
+                </div>
+              </div>
+              <button onclick="regenerateMedia(${p.id})" style="margin-top:8px;padding:6px 12px;border-radius:6px;background:transparent;color:var(--gray-400);border:1px solid var(--gray-200);font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif">↻ Regenerate anyway</button>
+            </div>
+          ` : ''}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function updatePPStats() {
+  const awaiting = Object.values(mediaStates).filter(s=>s==='awaiting').length;
+  const generating = Object.values(mediaStates).filter(s=>s==='generating').length;
+  const ready = Object.values(mediaStates).filter(s=>s==='ready').length;
+  const done = Object.values(mediaStates).filter(s=>s==='approved').length;
+  const el = (id, v) => { const e = document.getElementById(id); if(e) e.textContent = v; };
+  el('pp-approved', awaiting);
+  el('pp-generating', generating);
+  el('pp-ready', ready);
+  el('pp-done', done);
+  const badge = document.getElementById('badge-media');
+  if(badge) badge.textContent = ready + generating;
+}
+
+
 
 function approveAll() {
   posts.filter(p => {
@@ -1227,6 +1663,8 @@ function showPage(name, el) {
   document.getElementById('page-'+name).classList.add('active');
   el.classList.add('active');
   if(notifsOpen) toggleNotif();
+  if(name === 'postprod') renderPostProd();
+  if(name === 'design') updatePromptPreview();
 }
 
 function togglePause() {
