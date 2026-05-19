@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0048)file:///C:/Users/PRIYANKA/Downloads/index_2.html -->
+<!-- saved from url=(0048)file:///C:/Users/PRIYANKA/Downloads/index_3.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -644,7 +644,13 @@ textarea.campaign-input:focus { outline: none; border-color: var(--gold); }
     <button class="filter-chip gold" onclick="approveAll()">✓ Approve all visible</button>
   </div>
 
-  <div id="post-list"></div>
+  <div id="post-list"><div style="text-align:center;padding:48px;color:var(--red)">
+      <div style="font-size:24px;margin-bottom:8px">⚠</div>
+      <div style="font-size:14px;font-weight:500">Could not load from Google Sheets</div>
+      <div style="font-size:12px;color:var(--gray-400);margin-top:6px">Failed to fetch</div>
+      <div style="font-size:12px;color:var(--gray-400);margin-top:4px">Make sure the sheet is shared publicly (Anyone with link → Viewer)</div>
+      <button onclick="loadFromSheets()" style="margin-top:16px;padding:8px 16px;border-radius:6px;background:var(--gold);border:none;font-size:13px;font-weight:600;cursor:pointer;font-family:&#39;DM Sans&#39;,sans-serif">Retry</button>
+    </div></div>
 </div>
 
 <!-- CALENDAR PAGE -->
@@ -1162,7 +1168,10 @@ const defaultDesignLanguage = {
   vdonts: "No shaky handheld camera. No fast cuts. No text overlays."
 };
 
-let designLanguage = JSON.parse(localStorage.getItem('spade_dl') || 'null') || {...defaultDesignLanguage};
+let designLanguage = (function() {
+  try { return JSON.parse(localStorage.getItem('spade_dl') || 'null') || {...defaultDesignLanguage}; }
+  catch(e) { return {...defaultDesignLanguage}; }
+})();
 
 function getDesignLanguageSuffix() {
   return `Style: ${designLanguage.style}. Lighting: ${designLanguage.lighting}. Colors: ${designLanguage.color}. Setting: ${designLanguage.setting}. Do: ${designLanguage.dos} Avoid: ${designLanguage.donts}. ${designLanguage.always}`;
@@ -1179,7 +1188,7 @@ function saveDesignLanguage() {
   designLanguage.camera = document.getElementById('dl-camera')?.value || designLanguage.camera;
   designLanguage.vmood = document.getElementById('dl-vmood')?.value || designLanguage.vmood;
   designLanguage.vdonts = document.getElementById('dl-vdonts')?.value || designLanguage.vdonts;
-  localStorage.setItem('spade_dl', JSON.stringify(designLanguage));
+  try { localStorage.setItem('spade_dl', JSON.stringify(designLanguage)); } catch(e) {}
   updatePromptPreview();
   alert('Design language saved! All image and video prompts will now use these rules.');
 }
@@ -1317,10 +1326,6 @@ function addNotif(title, body) {
   const cnt = document.getElementById('notifCount');
   if (cnt) { cnt.style.display = 'flex'; cnt.textContent = unreadCount; }
 }
-let currentFilter = 'all';
-let paused = false;
-let notifsOpen = false;
-let unreadCount = 4;
 
 function platformClass(p) {
   if(p==='LinkedIn') return 'ptag-li';
