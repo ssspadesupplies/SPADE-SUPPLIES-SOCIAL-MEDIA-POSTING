@@ -186,7 +186,7 @@ Generate posts for all platforms and days as specified. Rotate topics — do not
   let rawText;
   try {
     rawText = await callClaude(
-      'claude-sonnet-4-20250514',
+      'claude-sonnet-4-6',
       GENERATION_PROMPT,
       contentBriefing,
       16000
