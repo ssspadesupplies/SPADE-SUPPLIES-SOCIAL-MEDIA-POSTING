@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- saved from url=(0048)file:///C:/Users/PRIYANKA/Downloads/index_3.html -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<html lang="en">
+<head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Spade Supplies — Content Dashboard</title>
-<link href="./Spade Supplies — Content Dashboard_files/css2" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
   --gold: #FFB800;
@@ -458,11 +458,11 @@ textarea.campaign-input:focus { outline: none; border-color: var(--gold); }
   </div>
   <div class="topbar-right">
     <button class="emergency-btn" id="pauseBtn" onclick="togglePause()">
-      <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><rect x="3" y="2" width="4" height="12" rx="1"></rect><rect x="9" y="2" width="4" height="12" rx="1"></rect></svg>
+      <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><rect x="3" y="2" width="4" height="12" rx="1"/><rect x="9" y="2" width="4" height="12" rx="1"/></svg>
       <span id="pauseLabel">Pause all</span>
     </button>
     <div class="notif-btn" onclick="toggleNotif()" id="notifBtn">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
       <div class="notif-count" id="notifCount">5</div>
     </div>
   </div>
@@ -522,42 +522,42 @@ textarea.campaign-input:focus { outline: none; border-color: var(--gold); }
 <div class="sidebar">
   <div class="nav-section">
     <div class="nav-label">Content</div>
-    <div class="nav-item active" onclick="showPage(&#39;queue&#39;, this)">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"></path><rect x="9" y="3" width="6" height="4" rx="1"></rect><line x1="9" y1="12" x2="15" y2="12"></line><line x1="9" y1="16" x2="13" y2="16"></line></svg>
+    <div class="nav-item active" onclick="showPage('queue', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg>
       Review queue <span class="nav-badge" id="badge-pending">20</span>
     </div>
-    <div class="nav-item" onclick="showPage(&#39;postprod&#39;, this)">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"></rect><path d="M8 21h8M12 17v4"></path><path d="M10 9l5 3-5 3V9z"></path></svg>
+    <div class="nav-item" onclick="showPage('postprod', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M10 9l5 3-5 3V9z"/></svg>
       Post-production <span class="nav-badge" id="badge-media">0</span>
     </div>
-    <div class="nav-item" onclick="showPage(&#39;calendar&#39;, this)">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+    <div class="nav-item" onclick="showPage('calendar', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
       Calendar
     </div>
-    <div class="nav-item" onclick="showPage(&#39;campaign&#39;, this)">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+    <div class="nav-item" onclick="showPage('campaign', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
       Campaign prompt
     </div>
   </div>
   <div class="nav-section">
     <div class="nav-label">Insights</div>
-    <div class="nav-item" onclick="showPage(&#39;analytics&#39;, this)">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+    <div class="nav-item" onclick="showPage('analytics', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
       Analytics
     </div>
-    <div class="nav-item" onclick="showPage(&#39;costs&#39;, this)">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>
-      Cost &amp; balance
+    <div class="nav-item" onclick="showPage('costs', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      Cost & balance
     </div>
   </div>
   <div class="nav-section">
     <div class="nav-label">Setup</div>
-    <div class="nav-item" onclick="showPage(&#39;design&#39;, this)">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"></circle><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"></path><path d="M12 8v4l3 3"></path></svg>
+    <div class="nav-item" onclick="showPage('design', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/><path d="M12 8v4l3 3"/></svg>
       Design language
     </div>
-    <div class="nav-item" onclick="showPage(&#39;settings&#39;, this)">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"></circle><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"></path></svg>
+    <div class="nav-item" onclick="showPage('settings', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
       Settings
     </div>
   </div>
@@ -633,24 +633,19 @@ textarea.campaign-input:focus { outline: none; border-color: var(--gold); }
 
   <div class="approve-bar">
     <div class="filter-bar" style="margin:0;flex:1">
-      <button class="filter-chip active" onclick="setFilter(&#39;all&#39;,this)">All</button>
-      <button class="filter-chip" onclick="setFilter(&#39;LinkedIn&#39;,this)">LinkedIn</button>
-      <button class="filter-chip" onclick="setFilter(&#39;Instagram&#39;,this)">Instagram</button>
-      <button class="filter-chip" onclick="setFilter(&#39;Facebook&#39;,this)">Facebook</button>
-      <button class="filter-chip" onclick="setFilter(&#39;YouTube Shorts&#39;,this)">YouTube</button>
-      <button class="filter-chip" onclick="setFilter(&#39;flagged&#39;,this)">⚠ Flagged</button>
-      <button class="filter-chip" onclick="setFilter(&#39;pending&#39;,this)">Pending only</button>
+      <button class="filter-chip active" onclick="setFilter('all',this)">All</button>
+      <button class="filter-chip" onclick="setFilter('LinkedIn',this)">LinkedIn</button>
+      <button class="filter-chip" onclick="setFilter('Instagram',this)">Instagram</button>
+      <button class="filter-chip" onclick="setFilter('Facebook',this)">Facebook</button>
+      <button class="filter-chip" onclick="setFilter('YouTube Shorts',this)">YouTube</button>
+      <button class="filter-chip" onclick="setFilter('flagged',this)">⚠ Flagged</button>
+      <button class="filter-chip" onclick="setFilter('pending',this)">Pending only</button>
     </div>
     <button class="filter-chip gold" onclick="approveAll()">✓ Approve all visible</button>
+    <button id="publish-btn" onclick="publishApproved()" style="padding:7px 16px;border-radius:6px;background:var(--green);color:white;border:none;font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif">🚀 Publish approved</button>
   </div>
 
-  <div id="post-list"><div style="text-align:center;padding:48px;color:var(--red)">
-      <div style="font-size:24px;margin-bottom:8px">⚠</div>
-      <div style="font-size:14px;font-weight:500">Could not load from Google Sheets</div>
-      <div style="font-size:12px;color:var(--gray-400);margin-top:6px">Failed to fetch</div>
-      <div style="font-size:12px;color:var(--gray-400);margin-top:4px">Make sure the sheet is shared publicly (Anyone with link → Viewer)</div>
-      <button onclick="loadFromSheets()" style="margin-top:16px;padding:8px 16px;border-radius:6px;background:var(--gold);border:none;font-size:13px;font-weight:600;cursor:pointer;font-family:&#39;DM Sans&#39;,sans-serif">Retry</button>
-    </div></div>
+  <div id="post-list"></div>
 </div>
 
 <!-- CALENDAR PAGE -->
@@ -926,17 +921,17 @@ textarea.campaign-input:focus { outline: none; border-color: var(--gold); }
     <div style="font-size:12px;color:var(--gray-400);margin-bottom:10px">Every time the scheduler fires, all API costs are logged here.</div>
     <table style="width:100%;font-size:12px;border-collapse:collapse">
       <thead><tr style="color:var(--gray-400);border-bottom:1px solid var(--gray-200)">
-        <td style="padding:6px 0">Date &amp; time</td>
+        <td style="padding:6px 0">Date & time</td>
         <td>Stage</td>
         <td>Tokens / units</td>
         <td style="text-align:right">Cost (₹)</td>
       </tr></thead>
       <tbody>
-        <tr style="border-bottom:1px solid var(--gray-100)"><td style="padding:7px 0;color:var(--gray-600)">Mon 9 May, 07:01</td><td>Claude — content gen</td><td style="font-family:&#39;DM Mono&#39;,monospace">14,483 tok</td><td style="text-align:right;font-family:&#39;DM Mono&#39;,monospace">₹3.62</td></tr>
-        <tr style="border-bottom:1px solid var(--gray-100)"><td style="padding:7px 0;color:var(--gray-600)">Mon 9 May, 07:04</td><td>Claude — QA agent</td><td style="font-family:&#39;DM Mono&#39;,monospace">6,210 tok</td><td style="text-align:right;font-family:&#39;DM Mono&#39;,monospace">₹1.55</td></tr>
-        <tr style="border-bottom:1px solid var(--gray-100)"><td style="padding:7px 0;color:var(--gray-600)">Mon 9 May, 07:12</td><td>fal.ai — 8 images</td><td style="font-family:&#39;DM Mono&#39;,monospace">8 generations</td><td style="text-align:right;font-family:&#39;DM Mono&#39;,monospace">₹3.32</td></tr>
-        <tr style="border-bottom:1px solid var(--gray-100)"><td style="padding:7px 0;color:var(--gray-600)">Mon 9 May, 07:28</td><td>ElevenLabs — voiceover</td><td style="font-family:&#39;DM Mono&#39;,monospace">6 scripts</td><td style="text-align:right;font-family:&#39;DM Mono&#39;,monospace">₹1.84</td></tr>
-        <tr><td style="padding:7px 0;color:var(--gray-600)">Mon 9 May, 07:31</td><td>fal.ai — 2 videos</td><td style="font-family:&#39;DM Mono&#39;,monospace">2 generations</td><td style="text-align:right;font-family:&#39;DM Mono&#39;,monospace">₹0.87</td></tr>
+        <tr style="border-bottom:1px solid var(--gray-100)"><td style="padding:7px 0;color:var(--gray-600)">Mon 9 May, 07:01</td><td>Claude — content gen</td><td style="font-family:'DM Mono',monospace">14,483 tok</td><td style="text-align:right;font-family:'DM Mono',monospace">₹3.62</td></tr>
+        <tr style="border-bottom:1px solid var(--gray-100)"><td style="padding:7px 0;color:var(--gray-600)">Mon 9 May, 07:04</td><td>Claude — QA agent</td><td style="font-family:'DM Mono',monospace">6,210 tok</td><td style="text-align:right;font-family:'DM Mono',monospace">₹1.55</td></tr>
+        <tr style="border-bottom:1px solid var(--gray-100)"><td style="padding:7px 0;color:var(--gray-600)">Mon 9 May, 07:12</td><td>fal.ai — 8 images</td><td style="font-family:'DM Mono',monospace">8 generations</td><td style="text-align:right;font-family:'DM Mono',monospace">₹3.32</td></tr>
+        <tr style="border-bottom:1px solid var(--gray-100)"><td style="padding:7px 0;color:var(--gray-600)">Mon 9 May, 07:28</td><td>ElevenLabs — voiceover</td><td style="font-family:'DM Mono',monospace">6 scripts</td><td style="text-align:right;font-family:'DM Mono',monospace">₹1.84</td></tr>
+        <tr><td style="padding:7px 0;color:var(--gray-600)">Mon 9 May, 07:31</td><td>fal.ai — 2 videos</td><td style="font-family:'DM Mono',monospace">2 generations</td><td style="text-align:right;font-family:'DM Mono',monospace">₹0.87</td></tr>
       </tbody>
     </table>
   </div>
@@ -955,8 +950,8 @@ textarea.campaign-input:focus { outline: none; border-color: var(--gold); }
         <select id="dl-style">
           <option value="Professional product photography, clean studio background">Professional product photography</option>
           <option value="Bold industrial aesthetic, dramatic lighting">Bold industrial</option>
-          <option value="Warm domestic setting, natural Indian home environment">Warm &amp; domestic</option>
-          <option value="Minimal modern, lots of white space, elegant">Minimal &amp; modern</option>
+          <option value="Warm domestic setting, natural Indian home environment">Warm & domestic</option>
+          <option value="Minimal modern, lots of white space, elegant">Minimal & modern</option>
           <option value="Photorealistic, editorial, magazine quality">Editorial / magazine</option>
         </select>
       </div>
@@ -975,7 +970,7 @@ textarea.campaign-input:focus { outline: none; border-color: var(--gold); }
           <option value="Gold #FFB800 accent elements, dark charcoal backgrounds, clean white space">Gold + charcoal (brand)</option>
           <option value="Warm earth tones, terracotta, cream backgrounds">Warm earth tones</option>
           <option value="Clean white and grey backgrounds, product-forward">Clean white/grey</option>
-          <option value="Vibrant and bold, high saturation colours">Vibrant &amp; bold</option>
+          <option value="Vibrant and bold, high saturation colours">Vibrant & bold</option>
         </select>
       </div>
       <div class="form-field">
@@ -991,17 +986,17 @@ textarea.campaign-input:focus { outline: none; border-color: var(--gold); }
 
     <div class="form-field" style="margin-bottom:12px">
       <label>Composition rules (what to always do)</label>
-      <textarea id="dl-dos" rows="3" style="width:100%;padding:8px 10px;border:1px solid var(--gray-200);border-radius:6px;font-family:&#39;DM Sans&#39;,sans-serif;font-size:13px;background:var(--gray-50);resize:vertical">Show brand packaging or product label clearly. Include ISI certification mark when relevant. Show product in real-use context. South Indian aesthetic — tiles, granite, local architectural details where appropriate.</textarea>
+      <textarea id="dl-dos" rows="3" style="width:100%;padding:8px 10px;border:1px solid var(--gray-200);border-radius:6px;font-family:'DM Sans',sans-serif;font-size:13px;background:var(--gray-50);resize:vertical">Show brand packaging or product label clearly. Include ISI certification mark when relevant. Show product in real-use context. South Indian aesthetic — tiles, granite, local architectural details where appropriate.</textarea>
     </div>
 
     <div class="form-field" style="margin-bottom:12px">
       <label>What to always avoid</label>
-      <textarea id="dl-donts" rows="3" style="width:100%;padding:8px 10px;border:1px solid var(--gray-200);border-radius:6px;font-family:&#39;DM Sans&#39;,sans-serif;font-size:13px;background:var(--gray-50);resize:vertical">No cartoon or illustration style. No Western home aesthetics (wooden floors, fireplaces). No stock photo feel. No people's faces — hands and products only. No competitor branding visible.</textarea>
+      <textarea id="dl-donts" rows="3" style="width:100%;padding:8px 10px;border:1px solid var(--gray-200);border-radius:6px;font-family:'DM Sans',sans-serif;font-size:13px;background:var(--gray-50);resize:vertical">No cartoon or illustration style. No Western home aesthetics (wooden floors, fireplaces). No stock photo feel. No people's faces — hands and products only. No competitor branding visible.</textarea>
     </div>
 
     <div class="form-field" style="margin-bottom:12px">
       <label>Always mention in every prompt</label>
-      <textarea id="dl-always" rows="2" style="width:100%;padding:8px 10px;border:1px solid var(--gray-200);border-radius:6px;font-family:&#39;DM Sans&#39;,sans-serif;font-size:13px;background:var(--gray-50);resize:vertical">High resolution, sharp focus, professional commercial photography quality, 1:1 square format suitable for Instagram and LinkedIn.</textarea>
+      <textarea id="dl-always" rows="2" style="width:100%;padding:8px 10px;border:1px solid var(--gray-200);border-radius:6px;font-family:'DM Sans',sans-serif;font-size:13px;background:var(--gray-50);resize:vertical">High resolution, sharp focus, professional commercial photography quality, 1:1 square format suitable for Instagram and LinkedIn.</textarea>
     </div>
 
     <button class="btn-save" onclick="saveDesignLanguage()">Save design language</button>
@@ -1010,7 +1005,7 @@ textarea.campaign-input:focus { outline: none; border-color: var(--gold); }
   <div class="settings-section">
     <div class="settings-title">👁 Composed prompt preview</div>
     <p style="font-size:12px;color:var(--gray-400);margin-bottom:10px">This is what gets sent to fal.ai for every image. Your design language is automatically appended to Claude's image prompt.</p>
-    <div style="background:var(--gray-50);border:1px solid var(--gray-200);border-radius:8px;padding:12px;font-size:12px;font-family:&#39;DM Mono&#39;,monospace;color:var(--gray-700);line-height:1.7" id="prompt-preview">
+    <div style="background:var(--gray-50);border:1px solid var(--gray-200);border-radius:8px;padding:12px;font-size:12px;font-family:'DM Mono',monospace;color:var(--gray-700);line-height:1.7" id="prompt-preview">
       [Claude image prompt] + [your design language rules]
     </div>
     <button class="btn-save" style="margin-top:10px;background:var(--gray-900);color:white" onclick="updatePromptPreview()">Preview composed prompt</button>
@@ -1031,15 +1026,15 @@ textarea.campaign-input:focus { outline: none; border-color: var(--gold); }
     <div class="form-field" style="margin-bottom:12px">
       <label>Video mood</label>
       <select id="dl-vmood">
-        <option value="Calm and trustworthy, professional feel">Calm &amp; trustworthy</option>
-        <option value="Energetic and dynamic, fast cuts">Energetic &amp; dynamic</option>
+        <option value="Calm and trustworthy, professional feel">Calm & trustworthy</option>
+        <option value="Energetic and dynamic, fast cuts">Energetic & dynamic</option>
         <option value="Aspirational lifestyle, warm and inviting">Aspirational lifestyle</option>
-        <option value="Educational and informative, clean transitions">Educational &amp; clean</option>
+        <option value="Educational and informative, clean transitions">Educational & clean</option>
       </select>
     </div>
     <div class="form-field">
       <label>Video avoid</label>
-      <textarea id="dl-vdonts" rows="2" style="width:100%;padding:8px 10px;border:1px solid var(--gray-200);border-radius:6px;font-family:&#39;DM Sans&#39;,sans-serif;font-size:13px;background:var(--gray-50);resize:vertical">No shaky handheld camera. No fast cuts or strobing. No text overlays (added separately). No celebrity faces.</textarea>
+      <textarea id="dl-vdonts" rows="2" style="width:100%;padding:8px 10px;border:1px solid var(--gray-200);border-radius:6px;font-family:'DM Sans',sans-serif;font-size:13px;background:var(--gray-50);resize:vertical">No shaky handheld camera. No fast cuts or strobing. No text overlays (added separately). No celebrity faces.</textarea>
     </div>
     <button class="btn-save" style="margin-top:10px" onclick="saveDesignLanguage()">Save video style</button>
   </div>
@@ -1048,6 +1043,17 @@ textarea.campaign-input:focus { outline: none; border-color: var(--gold); }
 
 
   <div class="settings-section">
+  <div class="settings-section">
+    <div class="settings-title">🚀 Publishing</div>
+    <p style="font-size:12px;color:var(--gray-400);margin-bottom:12px">Add your GitHub token to enable one-click publishing. Use a fine-grained token with Contents: Read & Write permission on this repo only.</p>
+    <div class="form-field" style="margin-bottom:10px">
+      <label>GitHub Personal Access Token</label>
+      <input type="password" id="github-token-input" placeholder="github_pat_..." value="">
+    </div>
+    <button class="btn-save" onclick="saveGitHubToken()">Save token</button>
+    <p style="font-size:11px;color:var(--gray-400);margin-top:8px">Token is stored locally in your browser — never sent anywhere except GitHub's API.</p>
+  </div>
+
     <div class="settings-title">CTA settings</div>
     <p style="font-size:12px;color:var(--gray-400);margin-bottom:12px">Update once — all future generated posts use these values automatically.</p>
     <div class="form-grid">
@@ -1069,7 +1075,7 @@ textarea.campaign-input:focus { outline: none; border-color: var(--gold); }
       <div class="blacklist-tag">warranty void <span class="blacklist-remove" onclick="removeTag(this)">×</span></div>
     </div>
     <div style="display:flex;gap:8px;margin-top:10px">
-      <input type="text" id="blacklist-input" placeholder="Add a word or phrase..." style="flex:1;padding:7px 10px;border:1px solid var(--gray-200);border-radius:6px;font-family:&#39;DM Sans&#39;,sans-serif;font-size:13px;background:var(--gray-50)">
+      <input type="text" id="blacklist-input" placeholder="Add a word or phrase..." style="flex:1;padding:7px 10px;border:1px solid var(--gray-200);border-radius:6px;font-family:'DM Sans',sans-serif;font-size:13px;background:var(--gray-50)">
       <button class="btn-save" onclick="addTag()" style="margin-top:0">Add</button>
     </div>
   </div>
@@ -1089,19 +1095,19 @@ textarea.campaign-input:focus { outline: none; border-color: var(--gold); }
     <div class="settings-title">Seasonal triggers</div>
     <div class="toggle-row">
       <div><div class="toggle-info">Summer campaign (Apr–Jun)</div><div class="toggle-sub">Fans, earthing, surge protection — Tamil Nadu heat focus</div></div>
-      <div class="toggle on" onclick="this.classList.toggle(&#39;on&#39;)"><div class="toggle-knob"></div></div>
+      <div class="toggle on" onclick="this.classList.toggle('on')"><div class="toggle-knob"></div></div>
     </div>
     <div class="toggle-row">
       <div><div class="toggle-info">Monsoon campaign (Jun–Sep)</div><div class="toggle-sub">Plumbing safety, pipe quality, water damage — Kerala focus</div></div>
-      <div class="toggle on" onclick="this.classList.toggle(&#39;on&#39;)"><div class="toggle-knob"></div></div>
+      <div class="toggle on" onclick="this.classList.toggle('on')"><div class="toggle-knob"></div></div>
     </div>
     <div class="toggle-row">
       <div><div class="toggle-info">Diwali home upgrades (Oct–Nov)</div><div class="toggle-sub">Lighting, smart switches, automation — all regions</div></div>
-      <div class="toggle" onclick="this.classList.toggle(&#39;on&#39;)"><div class="toggle-knob"></div></div>
+      <div class="toggle" onclick="this.classList.toggle('on')"><div class="toggle-knob"></div></div>
     </div>
     <div class="toggle-row">
       <div><div class="toggle-info">Pongal new builds (Jan)</div><div class="toggle-sub">Complete electrical checklist, wiring, distribution boards</div></div>
-      <div class="toggle" onclick="this.classList.toggle(&#39;on&#39;)"><div class="toggle-knob"></div></div>
+      <div class="toggle" onclick="this.classList.toggle('on')"><div class="toggle-knob"></div></div>
     </div>
   </div>
 
@@ -1109,35 +1115,35 @@ textarea.campaign-input:focus { outline: none; border-color: var(--gold); }
     <div class="settings-title">QA agent thresholds</div>
     <div class="toggle-row">
       <div><div class="toggle-info">Flag language mixing</div><div class="toggle-sub">Alert when Tamil/Malayalam posts contain other language characters</div></div>
-      <div class="toggle on" onclick="this.classList.toggle(&#39;on&#39;)"><div class="toggle-knob"></div></div>
+      <div class="toggle on" onclick="this.classList.toggle('on')"><div class="toggle-knob"></div></div>
     </div>
     <div class="toggle-row">
       <div><div class="toggle-info">Flag price mentions</div><div class="toggle-sub">Alert when Claude includes specific ₹ amounts in posts</div></div>
-      <div class="toggle on" onclick="this.classList.toggle(&#39;on&#39;)"><div class="toggle-knob"></div></div>
+      <div class="toggle on" onclick="this.classList.toggle('on')"><div class="toggle-knob"></div></div>
     </div>
     <div class="toggle-row">
       <div><div class="toggle-info">Flag wrong CTA numbers</div><div class="toggle-sub">Alert if post CTA doesn't match saved WhatsApp number</div></div>
-      <div class="toggle on" onclick="this.classList.toggle(&#39;on&#39;)"><div class="toggle-knob"></div></div>
+      <div class="toggle on" onclick="this.classList.toggle('on')"><div class="toggle-knob"></div></div>
     </div>
     <div class="toggle-row">
       <div><div class="toggle-info">Auto-reject QA score below 60</div><div class="toggle-sub">Posts scoring below 60 are auto-rejected, not just flagged</div></div>
-      <div class="toggle" onclick="this.classList.toggle(&#39;on&#39;)"><div class="toggle-knob"></div></div>
+      <div class="toggle" onclick="this.classList.toggle('on')"><div class="toggle-knob"></div></div>
     </div>
   </div>
 </div>
 
-<!-- /main -->
+</div><!-- /main -->
 
 <!-- PREVIEW OVERLAY -->
 <div class="preview-overlay" id="previewOverlay" onclick="closePreview(event)">
   <div class="preview-modal">
     <div class="preview-bar">
       <div class="preview-tabs">
-        <div class="preview-tab active" onclick="switchPreview(&#39;instagram&#39;,this)" style="color:white;border-bottom-color:var(--gold)">Instagram</div>
-        <div class="preview-tab" onclick="switchPreview(&#39;linkedin&#39;,this)" style="color:var(--gray-400)">LinkedIn</div>
-        <div class="preview-tab" onclick="switchPreview(&#39;facebook&#39;,this)" style="color:var(--gray-400)">Facebook</div>
+        <div class="preview-tab active" onclick="switchPreview('instagram',this)" style="color:white;border-bottom-color:var(--gold)">Instagram</div>
+        <div class="preview-tab" onclick="switchPreview('linkedin',this)" style="color:var(--gray-400)">LinkedIn</div>
+        <div class="preview-tab" onclick="switchPreview('facebook',this)" style="color:var(--gray-400)">Facebook</div>
       </div>
-      <div class="preview-close" onclick="document.getElementById(&#39;previewOverlay&#39;).classList.remove(&#39;open&#39;)">×</div>
+      <div class="preview-close" onclick="document.getElementById('previewOverlay').classList.remove('open')">×</div>
     </div>
     <div class="preview-phone">
       <div class="preview-post">
@@ -1232,8 +1238,75 @@ function savePrompts(id) {
 }
 
 // ── GOOGLE SHEETS CONFIG ──
-const SHEET_ID = '1CH_XHQWxXY65fNlkMNyJvnhdI9KFnlsEMQ84e--ybek';
-const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=tsv&gid=0`;
+// ── GITHUB CONFIG ──
+const GITHUB_REPO = 'ssspadesupplies/SPADE-SUPPLIES-SOCIAL-MEDIA-POSTING';
+const GITHUB_RAW_URL = `https://raw.githubusercontent.com/${GITHUB_REPO}/main/posts.json`;
+const GITHUB_APPROVED_URL = `https://api.github.com/repos/${GITHUB_REPO}/contents/approved_posts.json`;
+
+// GitHub token stored in localStorage (set via Settings page)
+function getGitHubToken() {
+  try { return localStorage.getItem('spade_github_token') || ''; }
+  catch(e) { return ''; }
+}
+
+// ── WRITE APPROVED POSTS TO GITHUB ──
+async function writeApprovedToGitHub(approvedPosts) {
+  const token = getGitHubToken();
+  if (!token) {
+    alert('Please add your GitHub token in Settings → Publishing to enable automatic publishing.');
+    return false;
+  }
+
+  const content = {
+    generated_at: new Date().toISOString(),
+    approved_by: 'dashboard',
+    total_posts: approvedPosts.length,
+    posts: approvedPosts
+  };
+
+  const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(content, null, 2))));
+
+  try {
+    // Get current SHA if file exists
+    let sha = null;
+    try {
+      const current = await fetch(GITHUB_APPROVED_URL, {
+        headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json' }
+      });
+      if (current.ok) {
+        const data = await current.json();
+        sha = data.sha;
+      }
+    } catch(e) {}
+
+    // Write the file
+    const body = {
+      message: `✅ Approved ${approvedPosts.length} posts - ${new Date().toLocaleDateString('en-IN')}`,
+      content: encoded,
+      ...(sha ? { sha } : {})
+    };
+
+    const res = await fetch(GITHUB_APPROVED_URL, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/vnd.github+json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    });
+
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.message || 'GitHub write failed');
+    }
+
+    return true;
+  } catch(err) {
+    alert(`Failed to write to GitHub: ${err.message}`);
+    return false;
+  }
+}
 
 let posts = [];
 let weekLabel = '';
@@ -1243,40 +1316,47 @@ let paused = false;
 let notifsOpen = false;
 let unreadCount = 4;
 
-// ── LOAD FROM GOOGLE SHEETS ──
+// ── LOAD FROM GITHUB ──
 async function loadFromSheets() {
   const list = document.getElementById('post-list');
   list.innerHTML = `<div style="text-align:center;padding:48px;color:var(--gray-400)">
     <div style="font-size:24px;margin-bottom:8px">⏳</div>
-    <div style="font-size:14px;font-weight:500">Loading posts from Google Sheets...</div>
-    <div style="font-size:12px;margin-top:4px">Fetching this week's content</div>
+    <div style="font-size:14px;font-weight:500">Loading posts...</div>
+    <div style="font-size:12px;margin-top:4px">Fetching this week's content from GitHub</div>
   </div>`;
 
   try {
-    const res = await fetch(SHEET_URL);
-    if (!res.ok) throw new Error('Sheet not publicly accessible');
-    const tsv = await res.text();
-    const rows = tsv.split('\n').filter(r => r.trim());
+    // Add cache-busting param so GitHub serves fresh content
+    const res = await fetch(GITHUB_RAW_URL + '?t=' + Date.now());
+    if (!res.ok) throw new Error(`GitHub returned ${res.status} — make sure posts.json exists in the repo`);
+    const text = await res.text();
 
-    // Row 0 = headers, find the last data row (most recent week)
-    const dataRows = rows.slice(1).filter(r => r.trim());
-    if (dataRows.length === 0) throw new Error('No data rows found');
-
-    const lastRow = dataRows[dataRows.length - 1];
-    const cols = lastRow.split('\t');
-    const jsonString = cols[0] || '';
-    weekLabel = cols[1] || 'This week';
-
-    // Strip markdown code fences if present
-    const clean = jsonString
+    // Strip markdown code fences if Claude added them
+    const clean = text
       .replace(/```json\s*/gi, '')
       .replace(/```\s*/gi, '')
       .trim();
 
+    // Handle empty file (placeholder [])
+    if (clean === '[]' || clean === '') {
+      list.innerHTML = `<div style="text-align:center;padding:48px;color:var(--gray-400)">
+        <div style="font-size:32px;margin-bottom:12px">📭</div>
+        <div style="font-size:14px;font-weight:500">No posts yet</div>
+        <div style="font-size:12px;margin-top:4px">Run Make.com to generate this week's content.</div>
+      </div>`;
+      return;
+    }
+
     const raw = JSON.parse(clean);
 
+    // Handle both formats: plain array OR wrapper object {posts: [...]}
+    const rawPosts = Array.isArray(raw) ? raw : (raw.posts || []);
+    if (rawPosts.length === 0 && !Array.isArray(raw)) {
+      weekLabel = raw.week_label || weekLabel;
+    }
+
     // Normalise — add id and qa if missing
-    posts = raw.map((p, i) => ({
+    posts = rawPosts.map((p, i) => ({
       id: i + 1,
       platform: p.platform || 'Facebook',
       language: p.language || 'English',
@@ -1293,23 +1373,24 @@ async function loadFromSheets() {
     }));
 
     posts.forEach(p => {
-      states[p.id] = p.qa.score < 60 ? 'flagged' : 'pending';
+      if (!states[p.id]) states[p.id] = p.qa.score < 60 ? 'flagged' : 'pending';
     });
 
     // Update week label in topbar
+    weekLabel = 'Week of ' + new Date().toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' });
     const wl = document.getElementById('week-label-display');
     if (wl) wl.textContent = weekLabel;
 
     renderPosts();
-    addNotif('✅ Posts loaded', `${posts.length} posts loaded from Google Sheets — ${weekLabel}`);
+    updateStats();
+    addNotif('✅ Posts loaded', `${posts.length} posts ready for review`);
 
   } catch (err) {
-    console.error('Sheets load error:', err);
+    console.error('GitHub load error:', err);
     list.innerHTML = `<div style="text-align:center;padding:48px;color:var(--red)">
       <div style="font-size:24px;margin-bottom:8px">⚠</div>
-      <div style="font-size:14px;font-weight:500">Could not load from Google Sheets</div>
+      <div style="font-size:14px;font-weight:500">Could not load posts</div>
       <div style="font-size:12px;color:var(--gray-400);margin-top:6px">${err.message}</div>
-      <div style="font-size:12px;color:var(--gray-400);margin-top:4px">Make sure the sheet is shared publicly (Anyone with link → Viewer)</div>
       <button onclick="loadFromSheets()" style="margin-top:16px;padding:8px 16px;border-radius:6px;background:var(--gold);border:none;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif">Retry</button>
     </div>`;
   }
@@ -1438,7 +1519,32 @@ function renderPosts() {
   updateStats();
 }
 
-// ── POST-PRODUCTION STATE ──
+function saveGitHubToken() {
+  const token = document.getElementById('github-token-input')?.value?.trim();
+  if (!token) { alert('Please enter a token'); return; }
+  try { localStorage.setItem('spade_github_token', token); } catch(e) {}
+  alert('✅ GitHub token saved. You can now use the Publish approved button.');
+}
+
+async function publishApproved() {
+  const approvedPosts = posts.filter(p => states[p.id] === 'approved');
+  if (approvedPosts.length === 0) {
+    alert('No approved posts yet. Approve some posts first.');
+    return;
+  }
+
+  const btn = document.getElementById('publish-btn');
+  if (btn) { btn.textContent = '⏳ Writing to GitHub...'; btn.disabled = true; }
+
+  const success = await writeApprovedToGitHub(approvedPosts);
+
+  if (btn) { btn.textContent = '🚀 Publish approved'; btn.disabled = false; }
+
+  if (success) {
+    addNotif('🚀 Publishing triggered', `${approvedPosts.length} posts sent to GitHub — publishing workflow starting automatically`);
+    alert(`✅ ${approvedPosts.length} posts sent to GitHub!\n\nThe publish workflow will start automatically in ~30 seconds.\nCheck GitHub Actions for progress.`);
+  }
+}
 // mediaStates tracks: null | 'generating' | 'ready' | 'approved'
 const mediaStates = {};
 const mediaAssets = {}; // { id: { imageUrl, videoUrl, audioUrl } }
@@ -1745,6 +1851,5 @@ document.addEventListener('click', e => {
 // Start by loading from Google Sheets
 loadFromSheets();
 </script>
-
-
-</body></html>
+</body>
+</html>
