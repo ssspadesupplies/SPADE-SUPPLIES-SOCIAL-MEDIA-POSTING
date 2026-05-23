@@ -1,0 +1,38 @@
+name: Publish Approved Posts
+
+on:
+  push:
+    paths:
+      - 'approved_posts.json'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Publish to all platforms
+        env:
+          META_PAGE_ACCESS_TOKEN: ${{ secrets.META_PAGE_ACCESS_TOKEN }}
+          META_PAGE_ID: ${{ secrets.META_PAGE_ID }}
+          INSTAGRAM_ACCOUNT_ID: ${{ secrets.INSTAGRAM_ACCOUNT_ID }}
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          LINKEDIN_AUTHOR_URN: ${{ secrets.LINKEDIN_AUTHOR_URN }}
+        run: node publish.js
+
+      - name: Commit publish log
+        run: |
+          git config --global user.email "content-bot@spadesupplies.com"
+          git config --global user.name "Spade Content Bot"
+          git add published_posts.json
+          git diff --staged --quiet || git commit -m "Published - $(date +%Y-%m-%d %H:%M)"
+          git push
