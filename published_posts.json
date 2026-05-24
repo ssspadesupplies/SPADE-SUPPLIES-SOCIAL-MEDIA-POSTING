@@ -8,7 +8,18 @@
       "published_at": "2026-05-24T10:16:56.927Z",
       "platform_post_id": null,
       "status": "failed"
+    },
+    {
+      "id": 3,
+      "topic": "Beat the heat with BLDC fans — Atomberg",
+      "platform": "Facebook",
+      "language": "English",
+      "published_at": "2026-05-24T11:04:54.948Z",
+      "platform_post_id": {
+        "error": "API error 400: {\"error\":{\"message\":\"Unsupported post request. Object with ID '1304395391655099' does not exist, cannot be loaded due to missing permissions, or does not support this operation. Please read the Graph API documentation at https://developers.facebook.com/docs/graph-api\",\"type\":\"GraphMethodException\",\"code\":100,\"error_subcode\":33,\"fbtrace_id\":\"AyyqYhDwAuEsT0HBOsKwB3r\"}}"
+      },
+      "status": "failed"
     }
   ],
-  "last_run": "2026-05-24T10:16:58.930Z"
+  "last_run": "2026-05-24T11:04:56.950Z"
 }
