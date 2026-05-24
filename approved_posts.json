@@ -1,1 +1,25 @@
-{"posts":[]}
+{
+  "generated_at": "2026-05-24T10:16:43.932Z",
+  "approved_by": "dashboard",
+  "total_posts": 1,
+  "posts": [
+    {
+      "id": 1,
+      "platform": "LinkedIn",
+      "language": "English",
+      "pillar": "Education",
+      "topic": "Why copper wiring matters in summer heat",
+      "hook": "Summer heat doesn't just affect you — it stresses your home's wiring too.",
+      "body": "As temperatures cross 40°C across Tamil Nadu, substandard wires expand, insulation weakens, and overheating risks climb. Copper conductors from trusted brands like Finolex and Polycab are built to handle sustained thermal load without degrading. For contractors specifying new builds or rewires this season, the wire gauge and conductor grade you choose today determines safety for the next 20 years. At Spade Supplies, we stock the full Finolex and Polycab range with same-day dispatch across Tamil Nadu and Kerala.",
+      "cta": "WhatsApp 7204406785 or visit spadesupplies.com to consult our wiring specialists.",
+      "hashtags": "#ElectricalSafety #CopperWiring #Finolex #Polycab #SummerSafety #ContractorLife #SpadeSupplies #TamilNaduConstruction",
+      "image_prompt": "Clean infographic showing a cross-section of a high-quality copper wire versus a substandard wire under heat stress, with temperature indicators and brand logos Finolex and Polycab, professional blue and orange colour palette, no text overlays needed",
+      "video_prompt": null,
+      "voiceover": null,
+      "qa": {
+        "score": 85,
+        "flags": []
+      }
+    }
+  ]
+}
