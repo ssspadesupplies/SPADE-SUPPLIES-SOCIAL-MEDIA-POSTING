@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-05-24T10:16:43.932Z",
+  "generated_at": "2026-05-24T11:04:43.136Z",
   "approved_by": "dashboard",
-  "total_posts": 1,
+  "total_posts": 2,
   "posts": [
     {
       "id": 1,
@@ -14,6 +14,24 @@
       "cta": "WhatsApp 7204406785 or visit spadesupplies.com to consult our wiring specialists.",
       "hashtags": "#ElectricalSafety #CopperWiring #Finolex #Polycab #SummerSafety #ContractorLife #SpadeSupplies #TamilNaduConstruction",
       "image_prompt": "Clean infographic showing a cross-section of a high-quality copper wire versus a substandard wire under heat stress, with temperature indicators and brand logos Finolex and Polycab, professional blue and orange colour palette, no text overlays needed",
+      "video_prompt": null,
+      "voiceover": null,
+      "qa": {
+        "score": 85,
+        "flags": []
+      }
+    },
+    {
+      "id": 3,
+      "platform": "Facebook",
+      "language": "English",
+      "pillar": "Product/Brand",
+      "topic": "Beat the heat with BLDC fans — Atomberg",
+      "hook": "Summer fan running all day? Switch to Atomberg BLDC and stop dreading your electricity bill.",
+      "body": "Atomberg BLDC fans deliver powerful airflow while consuming a fraction of the power of ordinary fans. Available now at Spade Supplies — 65+ years of trusted supply across Tamil Nadu and Kerala. 100% genuine. Same-day dispatch.",
+      "cta": "WhatsApp us at 7204406785 or shop at spadesupplies.com",
+      "hashtags": "#Atomberg #SummerFans #SpadeSupplies #TamilNadu",
+      "image_prompt": "Warm, inviting image of a family relaxing comfortably at home under a ceiling fan during Tamil Nadu summer, Atomberg fan visible on ceiling, natural home setting, cheerful and relatable mood",
       "video_prompt": null,
       "voiceover": null,
       "qa": {
