@@ -1,1 +1,14 @@
-{"posts":[]}
+{
+  "posts": [
+    {
+      "id": 1,
+      "topic": "Why copper wiring matters in summer heat",
+      "platform": "LinkedIn",
+      "language": "English",
+      "published_at": "2026-05-24T10:16:56.927Z",
+      "platform_post_id": null,
+      "status": "failed"
+    }
+  ],
+  "last_run": "2026-05-24T10:16:58.930Z"
+}
